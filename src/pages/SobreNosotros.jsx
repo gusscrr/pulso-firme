@@ -12,7 +12,7 @@ function SobreNosotros() {
         <div className="sn-hero-grid">
           <div className="sn-hero-texto">
             <Reveal delay={150}>
-              <h1>Nosotros</h1>
+              <h1>Sobre Nosotros</h1>
             </Reveal>
 
             <Reveal delay={300}>
@@ -112,6 +112,16 @@ function SobreNosotros() {
               <span className="tag-profesion tag-azul">Ingeniero Biomédico</span>
               <a href="https://www.instagram.com/ivaancorrea__/" target="_blank" rel="noreferrer">
                 <i className="bi bi-instagram"></i>ivaancorrea_
+              </a>
+            </div>
+          </Reveal>
+
+          <Reveal delay={360}>
+            <div className="card-equipo">
+              <img className="foto-rosa" src="/img/ChatGPT Image 28 jul 2026, 12_25_19 p.m..png" alt="Ana" />
+              <h4>Ana Cabagna</h4>
+              <a href="https://www.instagram.com/ana_cabagna/" target="_blank" rel="noreferrer">
+                <i className="bi bi-instagram"></i>ana_cabagna
               </a>
             </div>
           </Reveal>
