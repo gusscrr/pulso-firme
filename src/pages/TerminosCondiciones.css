@@ -1,0 +1,157 @@
+/* MAIN */
+.tyc-main{
+    flex: 1;
+    padding-bottom: 100px;
+}
+
+/* HERO */
+.tyc-hero{
+    padding: 150px 20px 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.tyc-hero-card{
+    max-width: 700px;
+    width: 100%;
+    background: linear-gradient(155deg, #1a1a1a, #101010);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 24px;
+    box-shadow: 0 20px 45px rgba(0,0,0,0.5);
+    padding: 50px 40px;
+    animation: tyc-float 3.8s ease-in-out infinite;
+}
+
+@keyframes tyc-float{
+    0%, 100%{
+        transform: translateY(0);
+    }
+    50%{
+        transform: translateY(-14px);
+    }
+}
+
+.tyc-hero .hero-eyebrow{
+    display:inline-block;
+    font-family:'Inter', sans-serif;
+    font-size:0.8rem;
+    font-weight:600;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:#00e0a8;
+    background:rgba(16,185,129,0.12);
+    border:1px solid rgba(16,185,129,0.3);
+    padding:8px 20px;
+    border-radius:50px;
+    margin-bottom:22px;
+}
+
+.tyc-hero h1{
+    font-family:'Inter', sans-serif;
+    font-size:2.8rem;
+    font-weight:800;
+    letter-spacing:-1px;
+    margin-bottom:16px;
+    color: var(--blanco);
+}
+
+.tyc-hero p{
+    font-size:1.05rem;
+    line-height:1.7;
+    color:#b5b7b9;
+}
+
+/* TARJETA DE CONTENIDO */
+.tyc-card{
+    background: linear-gradient(155deg, #1a1a1a, #101010);
+    max-width: 1000px;
+    margin: 40px auto 0;
+    padding: 55px 50px;
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,0.06);
+    box-shadow: 0 20px 45px rgba(0,0,0,0.5);
+    animation: tyc-float 4s ease-in-out infinite;
+}
+
+.tyc-titulo{
+    font-family: 'Inter', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    text-align: center;
+    margin-bottom: 40px;
+    background: linear-gradient(90deg, #ffffff, #00e0a8);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.tyc-texto{
+    color: #c7c9cb;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    text-align: justify;
+}
+
+.tyc-texto p{
+    margin-bottom: 22px;
+}
+
+.tyc-texto p:last-child{
+    margin-bottom: 0;
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+    .tyc-hero{
+        padding-top: 130px;
+    }
+    .tyc-hero-card{
+        padding: 35px 25px;
+    }
+    .tyc-hero h1{
+        font-size: 2rem;
+    }
+    .tyc-card{
+        padding: 35px 24px;
+        margin-top: 30px;
+    }
+    .tyc-titulo{
+        font-size: 1.7rem;
+        margin-bottom: 25px;
+    }
+    .tyc-texto{
+        font-size: 1rem;
+        text-align: left;
+    }
+}
+
+/* ============================= */
+/* TEMA CLARO                     */
+/* ============================= */
+body.light-theme .tyc-hero-card,
+body.light-theme .tyc-card{
+    background: linear-gradient(155deg, #ffffff, #f4f5f6);
+    border-color: rgba(0,0,0,0.06);
+    box-shadow: 0 20px 45px rgba(0,0,0,0.1);
+}
+
+body.light-theme .tyc-hero h1{
+    color: #16181c;
+}
+
+body.light-theme .tyc-hero p{
+    color: #5a5d61;
+}
+
+body.light-theme .tyc-titulo{
+    background: linear-gradient(90deg, #16181c, #0f7b39);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+body.light-theme .tyc-texto{
+    color: #3a3d41;
+}

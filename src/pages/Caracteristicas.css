@@ -1,0 +1,222 @@
+/* HERO */
+.hero-caracteristicas{
+    padding: 150px 20px 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.hero-card{
+    max-width: 700px;
+    width: 100%;
+    background: linear-gradient(155deg, #1a1a1a, #101010);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 24px;
+    box-shadow: 0 20px 45px rgba(0,0,0,0.5);
+    padding: 50px 40px;
+    animation: card-float-car-hero 3.8s ease-in-out infinite;
+    transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+@keyframes card-float-car-hero{
+    0%, 100%{
+        transform: translateY(0);
+    }
+    50%{
+        transform: translateY(-14px);
+    }
+}
+
+.hero-caracteristicas .hero-eyebrow{
+    display:inline-block;
+    font-family:'Inter', sans-serif;
+    font-size:0.8rem;
+    font-weight:600;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:#00e0a8;
+    background:rgba(16,185,129,0.12);
+    border:1px solid rgba(16,185,129,0.3);
+    padding:8px 20px;
+    border-radius:50px;
+    margin-bottom:22px;
+}
+
+.hero-caracteristicas h1{
+    font-family: 'Inter', sans-serif;
+    font-size:2.8rem;
+    font-weight:800;
+    letter-spacing:-1px;
+    margin-bottom:16px;
+    color: var(--blanco);
+}
+
+.hero-caracteristicas p{
+    font-size:1.05rem;
+    line-height:1.7;
+    color:#b5b7b9;
+}
+
+/* SECTION */
+.section{
+    padding:90px 20px;
+}
+
+.section-heading{
+    text-align:center;
+    max-width:650px;
+    margin:0 auto 55px;
+}
+
+.eyebrow{
+    display:inline-block;
+    font-family:'Inter', sans-serif;
+    font-size:0.78rem;
+    font-weight:700;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:#00e0a8;
+    margin-bottom:14px;
+}
+
+.titulo{
+    font-family: 'Inter', sans-serif;
+    font-size: 2.6rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    background: linear-gradient(90deg, #ffffff, #00e0a8);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.section-heading p{
+    color:#b5b7b9;
+    font-size:1.05rem;
+    line-height:1.6;
+    margin-top:14px;
+}
+
+/* CARDS */
+.row.g-4{
+    max-width: 1150px;
+    margin: 0 auto;
+}
+
+.card-feature{
+    background: linear-gradient(145deg, #1a1a1a, #111111);
+    border:none;
+    border-radius:24px;
+    padding:35px 30px;
+    text-align:center;
+    height:100%;
+    transition: box-shadow 0.4s ease, border-color 0.4s ease, background 0.35s ease;
+    box-shadow:0 15px 35px rgba(0,0,0,.4);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    animation: card-float-car 3.6s ease-in-out infinite;
+}
+
+@keyframes card-float-car{
+    0%, 100%{
+        transform: translateY(0);
+    }
+    50%{
+        transform: translateY(-14px);
+    }
+}
+
+.card-feature:hover{
+    box-shadow: 0 20px 40px rgba(16,185,129,.3);
+    border-color: rgba(0, 224, 168, 0.35);
+}
+
+.card-icon-container {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.05);
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.1);
+    overflow: hidden;
+}
+
+.card-icon-container img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-feature h3{
+    font-family: 'Inter', sans-serif;
+    color:#00e0a8;
+    margin-bottom:14px;
+    font-size:1.3rem;
+    font-weight:700;
+}
+
+.card-feature p{
+    color:#c7c9cb;
+    font-size:0.98rem;
+    line-height: 1.6;
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+    .hero-caracteristicas{
+        padding-top: 130px;
+    }
+    .hero-card{
+        padding: 35px 25px;
+    }
+    .hero-caracteristicas h1{
+        font-size:2rem;
+    }
+    .titulo{
+        font-size:2rem;
+    }
+}
+
+/* ============================= */
+/* TEMA CLARO                     */
+/* ============================= */
+body.light-theme .hero-caracteristicas h1{
+    color: #16181c;
+}
+
+body.light-theme .hero-caracteristicas p{
+    color: #5a5d61;
+}
+
+body.light-theme .hero-card,
+body.light-theme .card-feature{
+    background: linear-gradient(145deg, #ffffff, #f4f5f6);
+    border-color: rgba(0,0,0,0.06);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
+
+body.light-theme .section-heading p{
+    color: #5a5d61;
+}
+
+body.light-theme .titulo{
+    background: linear-gradient(90deg, #16181c, #0f7b39);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+body.light-theme .card-icon-container{
+    background: rgba(0,0,0,0.03);
+    border-color: rgba(0,0,0,0.08);
+}
+
+body.light-theme .card-feature h3{
+    color: #0f7b39;
+}
+
+body.light-theme .card-feature p{
+    color: #3a3d41;
+}
