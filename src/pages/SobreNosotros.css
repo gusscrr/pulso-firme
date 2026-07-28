@@ -81,6 +81,9 @@
 }
 
 @media(max-width:900px){
+    .sn-hero{
+        text-align: center;
+    }
     .sn-hero-grid{
         flex-direction:column;
         text-align:center;

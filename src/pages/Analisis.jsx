@@ -180,7 +180,7 @@ function Analisis() {
               <Reveal delay={120}>
                 <div className="app-movil-item">
                   <div className="app-movil-img">
-                    <img src="/img/70_700+ Historia Clinica Fotografías de stock, fotos e imágenes libres de derechos.jpg" alt="Historial diario" />
+                    <img src="/img/historial.jpg" alt="Historial diario" />
                   </div>
                   <h3 className="app-movil-titulo">Historial</h3>
                   <p className="app-movil-texto">Registro diario y seguimiento constante de la evolución de los movimientos.</p>
@@ -200,7 +200,7 @@ function Analisis() {
               <Reveal delay={360}>
                 <div className="app-movil-item">
                   <div className="app-movil-img">
-                    <img src="/img/Google Image Result for https___www_shutterstock.com_image-vector_male-doctor-smiling-happy-face-600nw-2481032615.jpg" alt="Compartir con médicos" />
+                    <img src="/img/doctor.jpg" alt="Compartir con médicos" />
                   </div>
                   <h3 className="app-movil-titulo">Médicos</h3>
                   <p className="app-movil-texto">Opción para exportar reportes y compartirlos directamente con el especialista.</p>
