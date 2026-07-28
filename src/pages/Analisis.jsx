@@ -180,7 +180,7 @@ function Analisis() {
               <Reveal delay={120}>
                 <div className="app-movil-item">
                   <div className="app-movil-img">
-                    <img src="/img/historial.jpg" alt="Historial diario" />
+                    <img src="/img/medicos.jpg" alt="Historial diario" />
                   </div>
                   <h3 className="app-movil-titulo">Historial</h3>
                   <p className="app-movil-texto">Registro diario y seguimiento constante de la evolución de los movimientos.</p>
