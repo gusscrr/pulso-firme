@@ -1,0 +1,484 @@
+/* ============================================================
+   PÁGINAS LEGALES (Términos y Privacidad)
+   Todo sobre blanco, como las páginas legales de las grandes
+   marcas: título, "Lo importante" en tarjetas grises, el texto
+   completo con índice, y al final una franja gris para escribir.
+   ============================================================ */
+
+/* ---------- LÍNEA DE LECTURA ----------
+   Pegada abajo del menú, se llena de negro a medida que leés */
+.lg-progreso{
+    position:fixed;
+    top:62px;
+    left:0;
+    right:0;
+    z-index:40;
+    height:2px;
+    pointer-events:none;
+}
+
+.lg-progreso span{
+    display:block;
+    height:100%;
+    background:var(--t-negro);
+    transform-origin:0 50%;
+    transition:transform .12s linear;
+}
+
+/* ---------- TÍTULO ---------- */
+.lg-hero{
+    padding:calc(62px + clamp(56px, 7vw, 96px)) 0 clamp(36px, 4vw, 48px);
+    background:var(--t-blanco);
+}
+
+.lg-titulo{
+    max-width:18ch;
+}
+
+.lg-bajada{
+    max-width:56ch;
+}
+
+/* Fecha, tiempo de lectura y botón de imprimir en una sola fila */
+.lg-barra{
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:16px 28px;
+    margin-top:36px;
+    padding-top:28px;
+    border-top:1px solid var(--t-borde);
+}
+
+.lg-datos{
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:4px 10px;
+    font-family:var(--fuente-boton);
+    font-size:14px;
+    color:var(--t-texto-3);
+}
+
+.lg-datos-punto{
+    font-size:10px;
+    color:var(--plata-claro);
+}
+
+.lg-num{
+    font-family:var(--numero);
+    font-weight:500;
+    color:var(--t-texto);
+}
+
+.lg-imprimir{
+    margin-left:auto;
+    background:var(--t-gris);
+    color:var(--t-texto-2);
+    font-family:var(--fuente-boton);
+}
+
+.lg-imprimir:hover{
+    background:var(--t-gris-hover);
+}
+
+.lg-imprimir svg{
+    width:18px;
+    height:18px;
+}
+
+/* ---------- LO IMPORTANTE ---------- */
+.lg-resumen{
+    padding:clamp(16px, 2vw, 24px) 0 clamp(48px, 5vw, 72px);
+    background:var(--t-blanco);
+}
+
+.lg-resumen-titulo{
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:var(--celeste);
+}
+
+.lg-resumen-grilla{
+    display:grid;
+    grid-template-columns:repeat(4, minmax(0, 1fr));
+    gap:12px;
+    margin-top:20px;
+}
+
+/* La caja hace la aparición; la tarjeta de adentro, la inclinación */
+.lg-clave-caja{
+    display:flex;
+}
+
+.lg-clave{
+    display:flex;
+    flex:1 1 auto;
+    flex-direction:column;
+    padding:24px;
+    border-radius:12px;
+    background:var(--t-gris);
+    will-change:transform;
+}
+
+.lg-clave-icono{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:44px;
+    height:44px;
+    border-radius:var(--t-radio);
+    background:var(--t-blanco);
+    color:var(--t-texto);
+}
+
+.lg-clave-icono svg{
+    width:24px;
+    height:24px;
+}
+
+.lg-clave-titulo{
+    margin-top:20px;
+    font-size:17px;
+    font-weight:600;
+    letter-spacing:-0.015em;
+    line-height:1.3;
+    color:var(--t-texto);
+}
+
+.lg-clave-texto{
+    margin-top:6px;
+    font-size:14px;
+    line-height:1.55;
+    color:var(--t-texto-3);
+}
+
+/* ---------- TEXTO COMPLETO ---------- */
+.lg-cuerpo{
+    padding:clamp(24px, 3vw, 40px) 0 clamp(88px, 10vw, 128px);
+    background:var(--t-blanco);
+}
+
+.lg-grilla{
+    display:grid;
+    grid-template-columns:minmax(220px, 280px) minmax(0, 1fr);
+    align-items:start;
+    column-gap:clamp(48px, 7vw, 112px);
+}
+
+/* Índice */
+.lg-indice{
+    position:sticky;
+    top:96px;
+}
+
+.lg-indice-titulo{
+    font-family:var(--fuente-boton);
+    font-size:14px;
+    font-weight:400;
+    color:var(--t-texto-3);
+}
+
+.lg-indice-lista{
+    margin-top:16px;
+    list-style:none;
+    border-left:1px solid var(--t-borde-fuerte);
+}
+
+.lg-indice-item{
+    position:relative;
+    display:flex;
+    align-items:baseline;
+    gap:12px;
+    width:100%;
+    padding:8px 0 8px 18px;
+    border:none;
+    background:none;
+    font-family:var(--fuente-boton);
+    font-size:14px;
+    font-weight:500;
+    line-height:1.4;
+    text-align:left;
+    color:var(--t-texto-3);
+    cursor:pointer;
+    transition:color .2s ease;
+}
+
+.lg-indice-item::before{
+    content:'';
+    position:absolute;
+    left:-1px;
+    top:7px;
+    bottom:7px;
+    width:2px;
+    border-radius:2px;
+    background:var(--t-negro);
+    opacity:0;
+    transition:opacity .2s ease;
+}
+
+.lg-indice-item:hover,
+.lg-indice-item.activo{
+    color:var(--t-texto);
+}
+
+.lg-indice-item.activo::before{
+    opacity:1;
+}
+
+.lg-indice-numero{
+    min-width:18px;
+    font-family:var(--numero);
+    font-size:12px;
+    font-weight:500;
+    font-variant-numeric:tabular-nums;
+    color:var(--plata-claro);
+}
+
+/* Puntos: número chico arriba y título grande, como Tesla */
+.lg-punto{
+    padding:clamp(32px, 3.5vw, 44px) 0;
+    border-top:1px solid var(--t-borde);
+    /* Para que al saltar desde el índice no quede tapado por el menú */
+    scroll-margin-top:84px;
+}
+
+.lg-punto:first-child{
+    padding-top:0;
+    border-top:none;
+}
+
+.lg-punto-numero{
+    display:block;
+    font-family:var(--numero);
+    font-size:13px;
+    font-weight:500;
+    font-variant-numeric:tabular-nums;
+    color:var(--celeste);
+}
+
+.lg-punto-titulo{
+    margin-top:8px;
+    font-size:clamp(1.5rem, 2.2vw, 1.75rem);
+    font-weight:600;
+    letter-spacing:-0.03em;
+    line-height:1.2;
+    color:var(--t-texto);
+}
+
+.lg-punto-texto{
+    margin-top:14px;
+    max-width:70ch;
+    font-size:16px;
+    line-height:1.75;
+    color:var(--t-texto-2);
+    text-align:justify;
+    hyphens:manual;
+    -webkit-hyphens:manual;
+}
+
+/* Tarjeta para pasar a la otra página */
+.lg-siguiente{
+    display:grid;
+    grid-template-columns:minmax(0, 1fr) auto;
+    align-items:center;
+    column-gap:24px;
+    margin-top:8px;
+    padding:24px 28px;
+    border-radius:12px;
+    background:var(--t-gris);
+    text-decoration:none;
+    transition:background-color .33s ease;
+}
+
+.lg-siguiente:hover{
+    background:var(--t-gris-hover);
+}
+
+.lg-siguiente-volanta{
+    grid-column:1;
+    font-family:var(--fuente-boton);
+    font-size:13px;
+    color:var(--t-texto-3);
+}
+
+.lg-siguiente-titulo{
+    grid-column:1;
+    margin-top:4px;
+    font-size:clamp(1.25rem, 1.8vw, 1.5rem);
+    font-weight:600;
+    letter-spacing:-0.025em;
+    color:var(--t-texto);
+}
+
+.lg-siguiente svg{
+    grid-column:2;
+    grid-row:1 / span 2;
+    width:24px;
+    height:24px;
+    color:var(--t-texto);
+    transition:transform .3s cubic-bezier(.4, 0, .2, 1);
+}
+
+.lg-siguiente:hover svg{
+    transform:translateX(4px);
+}
+
+/* ---------- ¿DUDAS? ---------- */
+.lg-cierre{
+    padding:clamp(56px, 7vw, 88px) 0;
+    background:var(--t-gris);
+}
+
+.lg-cierre-fila{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:28px 48px;
+}
+
+.lg-cierre-titulo{
+    font-size:clamp(1.75rem, 3vw, 2.5rem);
+    font-weight:600;
+    letter-spacing:-0.035em;
+    line-height:1.1;
+    color:var(--t-texto);
+}
+
+.lg-cierre-texto{
+    margin-top:12px;
+    max-width:56ch;
+    font-size:16px;
+    line-height:1.7;
+    color:var(--t-texto-2);
+}
+
+.lg-cierre-botones{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+}
+
+.lg-cierre-botones .btn-t{
+    min-width:200px;
+    font-family:var(--fuente-boton);
+}
+
+.lg-cierre-botones .btn-t-negro{
+    color:#fff;
+}
+
+.lg-boton-blanco{
+    background:var(--t-blanco);
+    color:var(--t-texto-2);
+}
+
+.lg-boton-blanco:hover{
+    background:var(--t-gris-hover);
+}
+
+/* ---------- TABLET ---------- */
+@media(max-width:1024px){
+    .lg-resumen-grilla{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media(max-width:900px){
+    .lg-grilla{
+        grid-template-columns:minmax(0, 1fr);
+    }
+
+    /* En pantallas chicas el índice se esconde: el resumen de
+       arriba y la línea de lectura ya ubican */
+    .lg-indice{
+        display:none;
+    }
+}
+
+/* ---------- CELULAR ---------- */
+@media(max-width:560px){
+    .lg-imprimir{
+        display:none;
+    }
+
+    /* Fecha y tiempo de lectura uno debajo del otro, sin el punto */
+    .lg-datos{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .lg-datos-punto{
+        display:none;
+    }
+
+    .lg-resumen-grilla{
+        grid-template-columns:minmax(0, 1fr);
+    }
+
+    .lg-clave{
+        display:grid;
+        grid-template-columns:44px minmax(0, 1fr);
+        column-gap:16px;
+        padding:18px;
+    }
+
+    .lg-clave-icono{
+        grid-row:1 / span 2;
+    }
+
+    .lg-clave-titulo{
+        margin-top:0;
+        align-self:end;
+    }
+
+    .lg-clave-texto{
+        margin-top:2px;
+    }
+
+    .lg-siguiente{
+        padding:20px;
+    }
+
+    .lg-cierre-botones,
+    .lg-cierre-botones .btn-t{
+        width:100%;
+    }
+}
+
+/* ---------- AL IMPRIMIR ----------
+   Solo el título y el texto, sin menú ni botones */
+@media print{
+    .nav,
+    .footer,
+    .arriba,
+    .lg-progreso,
+    .lg-indice,
+    .lg-imprimir,
+    .lg-siguiente,
+    .lg-cierre{
+        display:none !important;
+    }
+
+    .lg-hero{
+        padding-top:0;
+    }
+
+    .lg-grilla{
+        grid-template-columns:minmax(0, 1fr);
+    }
+
+    .lg-clave{
+        border:1px solid var(--t-borde-fuerte);
+        background:none;
+    }
+
+    .revelar{
+        opacity:1 !important;
+        transform:none !important;
+        filter:none !important;
+    }
+}

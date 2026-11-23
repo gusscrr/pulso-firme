@@ -1,0 +1,332 @@
+/* ============================================================
+   ESTILO FINAL
+   Se carga después de todo (main.jsx), así que gana sobre los
+   estilos de cada página.
+
+   Las reglas de la web:
+   - Fondos: blanco #FFFFFF y gris #F4F4F4. Nada azulado.
+   - Textos: #171A20 (títulos), #393C41 (párrafos), #5C5E62 (gris).
+   - Un solo color fuerte: el azul #3E6AE1. Íconos siempre monocromo.
+   - Íconos de línea fina (1,5px) a 24px, en botones de 32x32 con
+     puntas de 4px y fondo gris suave al pasar el mouse.
+   - Menú: 14px, peso 500, casi negro, con fondo suave al pasar.
+   - Números grandes en Inter, peso 500 (la misma letra de los
+     botones y el footer).
+   - Cero sombras y cero degradés.
+   ============================================================ */
+
+/* ---------- NÚMEROS ---------- */
+:root{
+    --mono:var(--fuente-boton);
+    --numero:var(--fuente-boton);
+}
+
+.mono{
+    font-family:var(--numero);
+    font-weight:500;
+    letter-spacing:0;
+    font-variant-numeric:tabular-nums;
+}
+
+.dato-numero,
+.mv-dato-numero,
+.em-hito-fecha,
+.seccion-contador,
+.seccion-contador span,
+.hero-contador,
+.hero-contador span,
+.lg-indice-numero,
+.lg-punto-numero{
+    font-family:var(--numero);
+    font-weight:500;
+    font-variant-numeric:tabular-nums;
+}
+
+/* Los grandes: peso 500 y espaciado apenas cerrado para que
+   queden compactos */
+.dato-numero,
+.mv-dato-numero{
+    letter-spacing:-0.025em;
+}
+
+.em-hito-fecha{
+    letter-spacing:-0.01em;
+}
+
+/* ---------- MENÚ ---------- */
+.nav-links{
+    gap:4px;
+    margin-left:28px;
+    font-size:14px;
+}
+
+.nav-links a{
+    display:inline-flex;
+    align-items:center;
+    height:32px;
+    padding:0 14px;
+    border-radius:var(--t-radio);
+    font-family:var(--fuente-boton);
+    font-weight:500;
+    color:var(--t-texto);
+    transition:background-color .33s ease, color .33s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.activo{
+    color:var(--t-texto);
+    background:rgba(23, 26, 32, .05);
+}
+
+.nav-oscura .nav-links a,
+.nav-oscura .nav-links a:hover,
+.nav-oscura .nav-links a.activo{
+    color:#fff;
+}
+
+.nav-oscura .nav-links a:hover,
+.nav-oscura .nav-links a.activo{
+    background:rgba(255, 255, 255, .12);
+}
+
+/* Botón de idioma: cuadrado de 32 con puntas de 4px */
+.nav-icono{
+    width:32px;
+    height:32px;
+    border-radius:var(--t-radio);
+    color:var(--t-texto);
+    transition:background-color .33s ease, color .33s ease;
+}
+
+.nav-icono svg{
+    width:24px;
+    height:24px;
+    stroke-width:1.5;
+}
+
+.nav-icono:hover{
+    color:var(--t-texto);
+    background:rgba(23, 26, 32, .05);
+}
+
+.nav-oscura .nav-icono,
+.nav-oscura .nav-icono:hover{
+    color:#fff;
+}
+
+.nav-oscura .nav-icono:hover{
+    background:rgba(255, 255, 255, .12);
+}
+
+/* ---------- ÍCONOS: LÍNEA FINA Y MONOCROMO ---------- */
+/* Redes del footer: 24px y trazo de 1,5 */
+.red{
+    width:24px;
+    height:24px;
+    color:var(--t-texto-2);
+}
+
+.red svg{
+    stroke-width:1.5;
+}
+
+/* Instagram tiene el dibujo más chico adentro: 1,7 se ve igual a 1,5 */
+.red svg[viewBox^="-1.6"]{
+    stroke-width:1.7;
+}
+
+/* Botón para subir: cuadrado gris de 40 con la flecha a 20 */
+.arriba svg{
+    width:20px;
+    height:20px;
+    stroke-width:1.5;
+}
+
+/* Flecha de la lista desplegable */
+.desplegable-boton svg{
+    stroke-width:1.5;
+}
+
+/* Íconos de las funciones del inicio: monocromo, sin color */
+.funcion,
+.funcion-ambar,
+.funcion-verde{
+    --acento:var(--t-texto);
+    border-top-color:var(--t-borde-fuerte);
+}
+
+.funcion-icono,
+.funcion-icono svg{
+    color:var(--t-texto);
+    stroke:var(--t-texto);
+}
+
+.funcion-icono svg{
+    stroke-width:1.5;
+}
+
+/* Escudo de la nota y tildes de las listas */
+.mv-nota-icono,
+.mv-nota-icono svg,
+.mv-tiene svg,
+.pa li svg{
+    color:var(--t-texto);
+    stroke:var(--t-texto);
+}
+
+.mv-nota-icono svg,
+.mv-tiene svg,
+.pa li svg{
+    stroke-width:1.5;
+}
+
+.mv-falta{
+    color:var(--plata-claro);
+}
+
+/* ---------- ETIQUETAS DE ESTADO ----------
+   Gris neutro. El punto verde de "Disponible"
+   se queda: es el único aviso de que está prendido. */
+.producto-estado-disponible,
+.mv-estado-disponible,
+.producto-estado-desarrollo,
+.mv-estado-desarrollo{
+    background:rgba(23, 26, 32, .06);
+    color:var(--t-texto);
+}
+
+.producto-estado-desarrollo,
+.mv-estado-desarrollo{
+    color:var(--t-texto-3);
+}
+
+.producto-estado-desarrollo::before,
+.mv-estado-desarrollo::before{
+    background:var(--plata-claro);
+}
+
+.em-hito-sello{
+    background:rgba(23, 26, 32, .06);
+    color:var(--t-texto);
+}
+
+/* ---------- GRISES NEUTROS EN VEZ DE AZULADOS ---------- */
+.seccion-frase span{
+    color:var(--t-texto-3);
+}
+
+.dato{
+    border-top-color:var(--t-borde-fuerte);
+}
+
+.mv-hero-foto{
+    background:var(--t-gris);
+    box-shadow:none;
+}
+
+.mv-hero-puntos{
+    background:rgba(23, 26, 32, .35);
+}
+
+.mv-version-barras .mv-barra-llena{
+    background:var(--t-texto);
+}
+
+.mv-version-etiqueta{
+    border-color:var(--t-borde-fuerte);
+    color:var(--t-texto-2);
+}
+
+.mv-version-etiqueta-llena{
+    border-color:var(--t-negro);
+    background:var(--t-negro);
+    color:#fff;
+}
+
+.mv-version-boton:hover{
+    border-color:var(--t-borde-fuerte);
+}
+
+.mv-version-boton-principal:hover{
+    border-color:var(--t-negro-hover);
+    background:var(--t-negro-hover);
+}
+
+.contacto-campo input:hover,
+.contacto-campo textarea:hover{
+    border-color:var(--plata-claro);
+}
+
+.contacto-enviar:hover{
+    background:var(--t-negro-hover);
+}
+
+.ct .contacto-enviar:hover{
+    background:var(--t-azul-hover);
+}
+
+/* Línea de tiempo de Empresa */
+.em-linea-base{
+    background:var(--t-borde-fuerte);
+    opacity:1;
+}
+
+.em-hito-punto{
+    border-color:var(--t-borde-fuerte);
+    background:var(--t-blanco);
+}
+
+.em-hito:hover .em-hito-contenido{
+    background:rgba(23, 26, 32, .04);
+}
+
+/* Botones laterales del celular dibujado */
+.celular-boton{
+    background:#2A2D33;
+}
+
+/* Celular dibujado: borde neutro y sin sombra */
+.celular{
+    box-shadow:inset 0 0 0 2px #2A2D33;
+}
+
+/* Fondo de la tarjeta del equipo mientras carga la foto:
+   liso, sin degradé */
+.equipo-tarjeta{
+    background:var(--t-negro);
+}
+
+/* Progreso de la línea de tiempo: celeste liso, sin degradé */
+.em-linea-progreso{
+    background:var(--celeste);
+}
+
+/* Etiquetas finas (chips): borde gris */
+.producto-etiqueta,
+.mv-chip{
+    border-color:var(--t-borde-fuerte);
+    color:var(--t-texto-2);
+}
+
+.producto-datos{
+    border-color:var(--t-borde);
+}
+
+/* Idioma y Ayuda van juntos, con 4px entre los dos, y después
+   el aire de siempre hasta el botón azul */
+.nav-acciones .nav-icono{
+    margin-right:-4px;
+}
+
+.nav-acciones .nav-ayuda{
+    margin-right:10px;
+}
+
+/* Ícono de Soporte marcado cuando estás en esa página */
+.nav-icono.activo{
+    background:rgba(23, 26, 32, .05);
+}
+
+.nav-oscura .nav-icono.activo{
+    background:rgba(255, 255, 255, .12);
+}

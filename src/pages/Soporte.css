@@ -1,0 +1,438 @@
+/* ============================================================
+   PÁGINA SOPORTE
+   Arriba blanco, con el título y el buscador centrados. Después
+   los temas a la izquierda y las preguntas a la derecha, a todo
+   el ancho. Al final una franja gris para hablar con nosotros.
+   ============================================================ */
+
+/* ---------- TÍTULO Y BUSCADOR ---------- */
+.sp-hero{
+    padding:calc(62px + clamp(64px, 8vw, 112px)) 0 clamp(48px, 6vw, 80px);
+    background:var(--t-blanco);
+    text-align:center;
+}
+
+.sp-volanta{
+    justify-content:center;
+}
+
+.sp-titulo{
+    margin-inline:auto;
+}
+
+.sp-buscador{
+    position:relative;
+    display:flex;
+    align-items:center;
+    max-width:820px;
+    height:48px;
+    margin:clamp(32px, 4vw, 44px) auto 0;
+    border-radius:var(--t-radio);
+    background:var(--t-gris);
+    transition:background-color .33s ease, box-shadow .33s ease;
+}
+
+.sp-buscador:hover{
+    background:var(--t-gris-hover);
+}
+
+/* Al escribir: línea fina oscura alrededor, sin sombra */
+.sp-buscador:focus-within{
+    background:var(--t-gris);
+    box-shadow:inset 0 0 0 1px var(--t-texto);
+}
+
+.sp-buscador-icono{
+    display:inline-flex;
+    margin-left:16px;
+    color:var(--t-texto-3);
+}
+
+.sp-buscador-icono svg,
+.sp-buscador-borrar svg{
+    width:20px;
+    height:20px;
+}
+
+.sp-buscador input{
+    flex:1 1 auto;
+    min-width:0;
+    height:100%;
+    padding:0 12px;
+    border:none;
+    background:none;
+    font-family:var(--fuente-boton);
+    font-size:15px;
+    font-weight:500;
+    color:var(--t-texto);
+    outline:none;
+}
+
+.sp-buscador input::placeholder{
+    color:var(--t-texto-3);
+}
+
+/* Sacamos la cruz que pone el navegador: usamos la nuestra */
+.sp-buscador input::-webkit-search-cancel-button{
+    -webkit-appearance:none;
+    appearance:none;
+}
+
+.sp-buscador-borrar{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:32px;
+    height:32px;
+    margin-right:8px;
+    border:none;
+    border-radius:var(--t-radio);
+    background:none;
+    color:var(--t-texto-2);
+    cursor:pointer;
+    transition:background-color .33s ease;
+}
+
+.sp-buscador-borrar:hover{
+    background:rgba(23, 26, 32, .06);
+}
+
+/* ---------- PREGUNTAS FRECUENTES ---------- */
+.sp-cuerpo{
+    padding:clamp(32px, 4vw, 56px) 0 clamp(88px, 10vw, 136px);
+    background:var(--t-blanco);
+    scroll-margin-top:62px;
+}
+
+.sp-grilla{
+    display:grid;
+    grid-template-columns:minmax(220px, 300px) minmax(0, 1fr);
+    align-items:start;
+    column-gap:clamp(48px, 7vw, 112px);
+}
+
+/* Temas: lista con línea a la izquierda, como el índice legal */
+.sp-temas{
+    position:sticky;
+    top:96px;
+}
+
+.sp-temas-titulo{
+    font-size:clamp(1.25rem, 1.8vw, 1.5rem);
+    font-weight:600;
+    letter-spacing:-0.025em;
+    line-height:1.25;
+    color:var(--t-texto);
+}
+
+.sp-temas-lista{
+    margin-top:20px;
+    list-style:none;
+    border-left:1px solid var(--t-borde-fuerte);
+}
+
+.sp-tema{
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    width:100%;
+    padding:10px 0 10px 18px;
+    border:none;
+    background:none;
+    font-family:var(--fuente-boton);
+    font-size:14px;
+    font-weight:500;
+    text-align:left;
+    color:var(--t-texto-3);
+    cursor:pointer;
+    transition:color .2s ease;
+}
+
+.sp-tema::before{
+    content:'';
+    position:absolute;
+    left:-1px;
+    top:8px;
+    bottom:8px;
+    width:2px;
+    border-radius:2px;
+    background:var(--t-negro);
+    opacity:0;
+    transition:opacity .2s ease;
+}
+
+.sp-tema:hover,
+.sp-tema.activo{
+    color:var(--t-texto);
+}
+
+.sp-tema.activo::before{
+    opacity:1;
+}
+
+.sp-tema-numero{
+    font-family:var(--numero);
+    font-size:13px;
+    font-weight:500;
+    font-variant-numeric:tabular-nums;
+    color:var(--t-texto-3);
+}
+
+/* Resumen arriba de la lista: "16 preguntas en Todas" */
+.sp-resumen{
+    padding-bottom:16px;
+    border-bottom:1px solid var(--t-borde-fuerte);
+    font-family:var(--fuente-boton);
+    font-size:14px;
+    color:var(--t-texto-3);
+}
+
+.sp-resumen strong{
+    font-weight:600;
+    color:var(--t-texto);
+}
+
+.sp-numero{
+    font-family:var(--numero);
+    font-weight:600;
+    font-variant-numeric:tabular-nums;
+    color:var(--t-texto);
+}
+
+/* Preguntas */
+.sp-preguntas{
+    list-style:none;
+}
+
+.sp-pregunta{
+    border-bottom:1px solid var(--t-borde);
+}
+
+.sp-pregunta-boton{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:24px;
+    width:100%;
+    padding:22px 0;
+    border:none;
+    background:none;
+    font:inherit;
+    text-align:left;
+    cursor:pointer;
+}
+
+.sp-pregunta-textos{
+    display:flex;
+    flex-direction:column;
+    min-width:0;
+}
+
+.sp-pregunta-tema{
+    font-family:var(--fuente-boton);
+    font-size:12px;
+    font-weight:500;
+    color:var(--t-texto-3);
+}
+
+.sp-pregunta-titulo{
+    margin-top:4px;
+    font-size:17px;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    line-height:1.35;
+    color:var(--t-texto);
+    transition:color .2s ease;
+}
+
+.sp-pregunta-boton:hover .sp-pregunta-titulo{
+    color:var(--t-texto-2);
+}
+
+/* Adelanto de una línea, como los resultados de búsqueda */
+.sp-pregunta-adelanto{
+    margin-top:4px;
+    overflow:hidden;
+    font-size:14px;
+    line-height:1.5;
+    color:var(--t-texto-3);
+    white-space:nowrap;
+    text-overflow:ellipsis;
+}
+
+.sp-pregunta-icono{
+    flex:0 0 auto;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:32px;
+    height:32px;
+    border-radius:var(--t-radio);
+    color:var(--t-texto-2);
+    transition:background-color .33s ease, transform .3s cubic-bezier(.4, 0, .2, 1);
+}
+
+.sp-pregunta-icono svg{
+    width:20px;
+    height:20px;
+}
+
+.sp-pregunta-boton:hover .sp-pregunta-icono{
+    background:rgba(23, 26, 32, .05);
+}
+
+.sp-pregunta.abierta .sp-pregunta-icono{
+    transform:rotate(180deg);
+}
+
+.sp-respuesta{
+    padding:0 56px 26px 0;
+}
+
+.sp-respuesta[hidden]{
+    display:none;
+}
+
+.sp-respuesta p{
+    max-width:72ch;
+    font-size:16px;
+    line-height:1.75;
+    color:var(--t-texto-2);
+    text-align:justify;
+    hyphens:manual;
+    -webkit-hyphens:manual;
+}
+
+.sp-respuesta-boton{
+    margin-top:18px;
+}
+
+/* Sin resultados */
+.sp-vacio{
+    padding:48px 0;
+}
+
+.sp-vacio-titulo{
+    font-size:clamp(1.25rem, 1.8vw, 1.5rem);
+    font-weight:600;
+    letter-spacing:-0.025em;
+    color:var(--t-texto);
+}
+
+.sp-vacio-texto{
+    margin:8px 0 24px;
+    font-size:15px;
+    color:var(--t-texto-3);
+}
+
+/* ---------- SOPORTE PERSONALIZADO ---------- */
+.sp-contacto{
+    padding:clamp(56px, 7vw, 88px) 0;
+    background:var(--t-gris);
+}
+
+.sp-contacto-fila{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:28px 48px;
+}
+
+.sp-contacto-titulo{
+    font-size:clamp(1.75rem, 3vw, 2.5rem);
+    font-weight:600;
+    letter-spacing:-0.035em;
+    line-height:1.1;
+    color:var(--t-texto);
+}
+
+.sp-contacto-texto{
+    margin-top:12px;
+    max-width:56ch;
+    font-size:16px;
+    line-height:1.7;
+    color:var(--t-texto-2);
+}
+
+.sp-contacto-botones{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+}
+
+.sp-contacto-botones .btn-t{
+    min-width:200px;
+    font-family:var(--fuente-boton);
+}
+
+.sp-contacto-botones .btn-t-negro{
+    color:#fff;
+}
+
+/* Secundario sobre el gris: blanco */
+.sp-boton-blanco{
+    background:var(--t-blanco);
+    color:var(--t-texto-2);
+}
+
+.sp-boton-blanco:hover{
+    background:var(--t-gris-hover);
+}
+
+/* ---------- TABLET ---------- */
+@media(max-width:900px){
+    /* minmax(0, 1fr): si no, el adelanto de una línea estira la
+       columna y la página se sale del ancho */
+    .sp-grilla{
+        grid-template-columns:minmax(0, 1fr);
+    }
+
+    .sp-temas{
+        position:static;
+        margin-bottom:32px;
+    }
+
+    /* Los temas pasan a ser una fila de botones */
+    .sp-temas-lista{
+        display:flex;
+        flex-wrap:wrap;
+        gap:8px;
+        border-left:none;
+    }
+
+    .sp-tema{
+        width:auto;
+        height:36px;
+        padding:0 14px;
+        border-radius:var(--t-radio);
+        background:var(--t-gris);
+    }
+
+    .sp-tema::before{
+        display:none;
+    }
+
+    .sp-tema.activo{
+        background:var(--t-negro);
+        color:#fff;
+    }
+
+    .sp-tema.activo .sp-tema-numero{
+        color:rgba(255, 255, 255, .7);
+    }
+}
+
+/* ---------- CELULAR ---------- */
+@media(max-width:560px){
+    .sp-respuesta{
+        padding-right:0;
+    }
+
+    .sp-contacto-botones,
+    .sp-contacto-botones .btn-t{
+        width:100%;
+    }
+}

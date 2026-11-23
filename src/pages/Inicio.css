@@ -1,0 +1,1752 @@
+/* ============================================================
+   INICIO — por ahora solo el hero
+   ============================================================ */
+
+/* Mismo tamaño y tratamiento que el video de la referencia:
+   100svh, de borde a borde, sin margen y sin esquinas redondeadas.
+   La foto va de fondo con object-fit:cover y un filtro leve, igual
+   que el video. svh y no vh: en el celular vh cuenta la barra del
+   navegador y la foto queda cortada. */
+.hero{
+    position:relative;
+    min-height:100svh;
+    overflow:clip;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:90px 20px 60px;
+    background:#141414;
+    color:#fff;
+}
+
+.hero-fondo{
+    position:absolute;
+    inset:0;
+    z-index:0;
+    overflow:hidden;
+}
+
+/* ---------- FOTOS QUE CAMBIAN ----------
+   Las tres fotos están una encima de la otra. Cambian cada 15s:
+   la activa aparece con un fundido de 2s por encima de la anterior, que se queda
+   quieta debajo hasta que la nueva la tapa del todo: así nunca
+   se ve un parpadeo oscuro en el medio. Mientras está activa la
+   foto se acerca muy despacio (de 1.03 a 1.1 en 18s), el efecto
+   "Ken Burns" que usan las webs de producto. */
+.hero-foto{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    filter:saturate(.7) contrast(1.02);
+    transform:scale(1.03);
+    opacity:0;
+    pointer-events:none;
+    will-change:opacity, transform;
+}
+
+/* La primera foto, apenas carga: ya visible, sin fundido */
+.hero-foto-inicial{
+    z-index:2;
+    opacity:1;
+}
+
+.hero-foto-anterior{
+    z-index:1;
+    opacity:1;
+    transform:scale(1.1);
+    transition:transform 18s linear;
+}
+
+.hero-foto-activa{
+    z-index:2;
+    opacity:1;
+    transform:scale(1.1);
+    transition:opacity 2s cubic-bezier(.4, 0, .2, 1),
+               transform 18s linear;
+}
+
+/* Una sola capa negra que se desvanece de arriba hacia abajo.
+   Antes había dos capas encima de la foto (un degradado y un foco
+   ovalado en el centro) y entre las dos la ensuciaban. */
+.hero::after{
+    content:'';
+    position:absolute;
+    inset:0;
+    z-index:1;
+    pointer-events:none;
+    background:linear-gradient(
+        180deg,
+        rgba(0,0,0,.62) 0%,
+        rgba(0,0,0,.67) 26%,
+        rgba(0,0,0,.74) 44%,
+        rgba(0,0,0,.77) 66%,
+        rgba(0,0,0,.82) 100%
+    );
+}
+
+/* ============================================================
+   CONTENIDO DEL HERO
+   Centrado sobre la foto: la volanta "Último lanzamiento", el
+   nombre del producto bien grande y una bajada corta.
+   ============================================================ */
+.hero-contenido{
+    position:relative;
+    z-index:2;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    width:100%;
+}
+
+/* ---------- VOLANTA ----------
+   Igual que la referencia: mayúsculas, 15px, bold y letras bien
+   separadas (0.2em), en blanco. El text-indent compensa el
+   espacio que el letter-spacing deja después de la última
+   letra, para que quede centrada de verdad. */
+.hero-volanta{
+    font-family:var(--display);
+    font-size:15px;
+    font-weight:var(--volanta-peso);
+    letter-spacing:var(--volanta-espaciado);
+    text-indent:var(--volanta-espaciado);
+    text-transform:uppercase;
+    line-height:1;
+    color:#fff;
+    text-shadow:0 1px 14px rgba(0,0,0,.35);
+}
+
+/* ---------- NOMBRE DEL PRODUCTO ----------
+   Grande y apretado, como un nombre de marca. El "-v3" va más
+   apagado para que el nombre se lea primero. */
+.hero-titulo{
+    margin-top:20px;
+    font-family:var(--display);
+    font-size:clamp(4.5rem, 11vw, 10rem);
+    font-weight:var(--titular-peso);
+    line-height:var(--titular-interlineado);
+    letter-spacing:var(--titular-espaciado);
+    color:#fff;
+    /* Sombra muy difusa: separa las letras de las partes claras
+       del guante sin que se note que está */
+    text-shadow:0 4px 40px rgba(0,0,0,.35);
+}
+
+.hero-titulo span{
+    color:rgba(255,255,255,.5);
+}
+
+/* ---------- BAJADA ---------- */
+.hero-bajada{
+    margin-top:24px;
+    max-width:60ch;
+    font-size:clamp(1rem, 1.3vw, 1.1875rem);
+    line-height:1.6;
+    color:rgba(255,255,255,.78);
+    text-shadow:0 1px 16px rgba(0,0,0,.4);
+}
+
+/* ---------- INDICADOR DE SCROLL ----------
+   Copiado de FoodLoop: abajo al centro, a 32px del borde. Aparece
+   con un fundido de 1s después de esperar 1s. Es un mouse de
+   24 x 40 con borde blanco al 50% y una ruedita de 6px que baja
+   12px y vuelve a subir cada 1,5s, sin parar. */
+.hero-scroll{
+    position:absolute;
+    bottom:32px;
+    left:50%;
+    z-index:3;
+    transform:translateX(-50%);
+    opacity:0;
+    animation:scroll-aparece 1s ease 1s forwards;
+    pointer-events:none;
+}
+
+.hero-scroll-mouse{
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+    width:24px;
+    height:40px;
+    padding:8px;
+    border:2px solid rgba(255, 255, 255, .5);
+    border-radius:50px;
+}
+
+.hero-scroll-rueda{
+    display:block;
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:rgba(255, 255, 255, .5);
+    animation:scroll-rueda 1.5s ease-in-out infinite;
+}
+
+@keyframes scroll-aparece{
+    to{ opacity:1; }
+}
+
+@keyframes scroll-rueda{
+    0%, 100%{ transform:translateY(0); }
+    50%{ transform:translateY(12px); }
+}
+
+/* En PC cada frase va en su propio renglón, como antes. En el
+   celular se acomodan solas. */
+@media(min-width:761px){
+    .hero-bajada span{
+        display:block;
+    }
+}
+
+
+/* ============================================================
+   SECCIÓN MOBIT-V3
+   Paleta y tipografía del tema claro del portfolio: fondo blanco,
+   todo suelto sin tarjetas, títulos azul noche (#0F172A) bien apretados,
+   texto gris pizarra (#475569), volanta celeste en mayúsculas y
+   pasteles (celeste, ámbar y verde) para los acentos.
+   ============================================================ */
+.seccion{
+    /* Textos en los grises neutros de Tesla */
+    --noche:var(--t-texto);
+    --pizarra:var(--t-texto-2);
+    --pizarra-claro:var(--t-texto-3);
+    --celeste:#2B8BC6;
+
+    background:#fff;
+    padding-block:clamp(88px, 10vw, 140px);
+}
+
+/* ---------- CABECERA ----------
+   Como en el portfolio: volanta, título y bajada a la izquierda,
+   y el contador grande abajo a la derecha. */
+.seccion-cabecera{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:40px;
+    margin-bottom:clamp(40px, 5vw, 64px);
+}
+
+.seccion-volanta{
+    display:block;
+    font-size:14px;
+    font-weight:700;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:var(--celeste);
+    margin-bottom:18px;
+}
+
+.seccion-titulo{
+    font-size:clamp(2.5rem, 4.6vw, 3.75rem);
+    font-weight:600;
+    line-height:1.05;
+    letter-spacing:-0.035em;
+    color:var(--noche);
+}
+
+.seccion-bajada{
+    margin-top:18px;
+    max-width:52ch;
+    font-size:17px;
+    line-height:1.6;
+    color:var(--pizarra);
+}
+
+.seccion-contador{
+    flex:0 0 auto;
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    font-size:15px;
+    color:var(--pizarra);
+}
+
+.seccion-contador span{
+    font-size:clamp(2.5rem, 3.6vw, 3.25rem);
+    font-weight:500;
+    letter-spacing:-0.03em;
+    font-variant-numeric:tabular-nums;
+    color:var(--noche);
+}
+
+/* ---------- FRASE GRANDE ----------
+   Una sola frase a todo lo ancho: la primera parte en azul noche
+   y la segunda en gris, como el "Hola, soy Gustavo / Desarrollador"
+   del portfolio. */
+.seccion-frase{
+    max-width:30ch;
+    font-size:clamp(1.875rem, 3.4vw, 3rem);
+    font-weight:500;
+    line-height:1.18;
+    letter-spacing:-0.03em;
+    color:var(--noche);
+}
+
+.seccion-frase span{
+    color:#64748B;
+}
+
+/* ---------- EL PROBLEMA / LA SOLUCIÓN / PARA QUIÉN ----------
+   Tres tarjetas como las del portfolio en tema claro:
+   relleno gris azulado muy claro (#F4F7FA), sin borde, esquinas de
+   24px y el número en League Mono arriba. Las tres miden lo
+   mismo de alto. */
+.relato{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:16px;
+    margin-top:clamp(48px, 5vw, 72px);
+}
+
+/* Cada tarjeta va dentro de una cajita que aparece al scrollear:
+   la cajita estira la tarjeta para que las tres midan lo mismo */
+.relato-celda{
+    display:flex;
+}
+
+.relato-celda > .relato-item{
+    flex:1;
+    /* En columna, así "Leer más" queda abajo de todo y alineado
+       en las dos tarjetas */
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+}
+
+.relato-item{
+    padding:clamp(28px, 2.8vw, 38px);
+    border-radius:24px;
+    background:#F4F7FA;
+    transition:transform .3s ease;
+    will-change:transform;
+}
+
+/* Al pasar el puntero: se inclina (lo hace Inicio.jsx) y el borde
+   se marca un poco, igual que en el portfolio */
+
+.relato-numero{
+    display:block;
+    font-size:13px;
+    color:var(--celeste);
+    margin-bottom:clamp(28px, 3vw, 40px);
+}
+
+.relato-titulo{
+    font-size:19px;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    color:var(--noche);
+}
+
+.relato-texto{
+    margin-top:10px;
+    font-size:15.5px;
+    line-height:1.7;
+    color:var(--pizarra);
+}
+
+/* "Leer más" en celeste, sin subrayado; la flecha se corre un
+   poquito a la derecha al pasar el mouse */
+.relato-link{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-top:auto;
+    padding-top:18px;
+    font-size:15px;
+    font-weight:600;
+    color:#2B8BC6;
+    text-decoration:none;
+    transition:color .2s ease;
+}
+
+.relato-link svg{
+    width:10px;
+    height:9px;
+    transition:transform .25s cubic-bezier(.4, 0, .2, 1);
+}
+
+.relato-link:hover{
+    color:#0B4F78;
+}
+
+.relato-link:hover svg{
+    transform:translateX(3px);
+}
+
+/* Título chico que presenta las tres funciones */
+.seccion-subtitulo{
+    margin:clamp(88px, 9vw, 128px) 0 clamp(32px, 3.5vw, 44px);
+    font-size:clamp(1.75rem, 2.6vw, 2.25rem);
+    font-weight:600;
+    letter-spacing:-0.03em;
+    color:var(--noche);
+}
+
+/* ---------- FUNCIONES ----------
+   Sin tarjetas: las tres funciones van sueltas sobre el blanco,
+   en tres columnas. Arriba de cada una corre una línea fina gris
+   con un tramo corto del color de la función, como una regla. */
+.funciones{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    column-gap:clamp(32px, 4.5vw, 72px);
+    row-gap:56px;
+}
+
+.funcion{
+    --acento:#0284C7;
+
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    padding-top:28px;
+    border-top:1px solid #E2E8F0;
+}
+
+/* El tramo de color sobre la línea */
+.funcion::before{
+    content:'';
+    position:absolute;
+    top:-1px;
+    left:0;
+    width:56px;
+    height:2px;
+    background:var(--acento);
+}
+
+.funcion-ambar{
+    --acento:#D97706;
+}
+
+.funcion-verde{
+    --acento:#16A34A;
+}
+
+.funcion-arriba{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:clamp(32px, 3.5vw, 48px);
+}
+
+.funcion-numero{
+    font-size:13px;
+    color:var(--pizarra-claro);
+}
+
+/* Ícono suelto, solo con el color de la función */
+.funcion-icono{
+    display:inline-flex;
+    color:var(--acento);
+}
+
+.funcion-icono svg{
+    width:28px;
+    height:28px;
+}
+
+.funcion-titulo{
+    font-size:clamp(1.375rem, 1.8vw, 1.625rem);
+    font-weight:600;
+    line-height:1.2;
+    letter-spacing:-0.02em;
+    color:var(--noche);
+}
+
+.funcion-texto{
+    margin-top:12px;
+    font-size:15.5px;
+    line-height:1.65;
+    color:var(--pizarra);
+}
+
+/* Etiquetas como texto suelto, cada una con un puntito de color */
+.funcion-etiquetas{
+    list-style:none;
+    display:flex;
+    flex-direction:column;
+    gap:9px;
+    margin-top:24px;
+}
+
+.funcion-etiquetas li{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:14px;
+    font-weight:500;
+    color:var(--noche);
+}
+
+.funcion-etiquetas li::before{
+    content:'';
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:var(--acento);
+    flex:0 0 auto;
+}
+
+/* ---------- DATOS ----------
+   Como la referencia: tres columnas separadas, cada una con su
+   propia línea fina arriba (sin líneas verticales). Los números
+   en azul, ámbar y verde, los mismos colores de las tres
+   funciones. Abajo, una línea corta de explicación. */
+.datos{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    column-gap:clamp(20px, 2vw, 28px);
+    margin-top:clamp(72px, 8vw, 112px);
+}
+
+.dato{
+    padding-top:clamp(28px, 3vw, 40px);
+    border-top:1px solid #D5DEE7;
+}
+
+.dato-numero{
+    font-size:clamp(2.5rem, 4vw, 3.5rem);
+    font-weight:600;
+    line-height:1;
+    letter-spacing:-0.04em;
+    color:#0284C7;
+}
+
+.dato-texto{
+    margin-top:18px;
+    max-width:30ch;
+    font-size:16px;
+    line-height:1.7;
+    color:var(--pizarra);
+}
+
+.dato-ambar .dato-numero{
+    color:#D97706;
+}
+
+.dato-verde .dato-numero{
+    color:#16A34A;
+}
+
+/* ============================================================
+   PRODUCTOS
+   Copiado de la referencia, sobre el mismo blanco del resto de
+   la página: tarjetas sin relleno. Lo único que marca la tarjeta
+   es una línea fina arriba con las esquinas redondeadas, que se
+   desvanece hacia abajo por los costados. Adentro: etiqueta
+   celeste con borde, estado en píldora, título, texto, una línea, datos
+   cortos, el botón marrón oscuro y un enlace gris.
+   ============================================================ */
+.seccion-productos{
+    --linea-crema:#E2E8F0;
+
+    /* Mismo blanco que la sección de arriba: va pegada a ella,
+       por eso no lleva espacio extra arriba */
+    background:#fff;
+    padding-top:0;
+}
+
+.productos{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:32px;
+}
+
+.producto{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    padding:26px 19px 4px;
+}
+
+/* La línea de arriba con las esquinas redondeadas: es un borde
+   entero que se va borrando a los 20px, así solo queda el arco */
+.producto::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    border:1px solid var(--linea-crema);
+    border-radius:22px;
+    -webkit-mask-image:linear-gradient(#000 0, #000 4px, transparent 20px);
+    mask-image:linear-gradient(#000 0, #000 4px, transparent 20px);
+    pointer-events:none;
+}
+
+/* Etiqueta en el celeste de la marca (#A0D7F4), un poco más
+   oscuro para que se lea bien sobre blanco: borde #7EC4EC y
+   texto #2B8BC6, los dos del mismo tono */
+.producto-etiqueta{
+    display:inline-flex;
+    align-items:center;
+    height:26px;
+    padding:0 11px;
+    border:1px solid #7EC4EC;
+    border-radius:50px;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:#2B8BC6;
+}
+
+/* Estado: píldora con puntito */
+.producto-estado{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    height:23px;
+    margin-top:10px;
+    padding:0 10px;
+    border-radius:50px;
+    font-size:12px;
+    font-weight:700;
+}
+
+.producto-estado::before{
+    content:'';
+    width:6px;
+    height:6px;
+    border-radius:50%;
+}
+
+.producto-estado-disponible{
+    background:#E2F0E7;
+    color:#1F6B4A;
+}
+
+/* Punto "prendido": verde más vivo, un brillo suave alrededor y
+   un anillo que late despacio cada 2 segundos, como una luz de
+   encendido */
+.producto-estado-disponible::before{
+    background:#22C55E;
+    box-shadow:0 0 6px 1px rgba(34, 197, 94, .75);
+    animation:prendido 2s cubic-bezier(.4, 0, .2, 1) infinite;
+}
+
+@keyframes prendido{
+    0%{
+        box-shadow:0 0 6px 1px rgba(34, 197, 94, .75),
+                   0 0 0 0 rgba(34, 197, 94, .55);
+    }
+    70%,
+    100%{
+        box-shadow:0 0 6px 1px rgba(34, 197, 94, .75),
+                   0 0 0 6px rgba(34, 197, 94, 0);
+    }
+}
+
+/* "En desarrollo" en gris: los mismos grises pizarra que usa
+   el resto de la sección */
+.producto-estado-desarrollo{
+    background:#EEF1F5;
+    color:#5B6878;
+}
+
+.producto-estado-desarrollo::before{
+    background:#94A3B8;
+}
+
+.producto-titulo{
+    margin-top:20px;
+    font-size:18px;
+    font-weight:500;
+    line-height:1.3;
+    letter-spacing:-0.005em;
+    color:var(--noche);
+}
+
+.producto-texto{
+    margin-top:12px;
+    font-size:15px;
+    line-height:1.75;
+    letter-spacing:0.005em;
+    color:var(--pizarra);
+}
+
+/* La parte de abajo queda pegada al fondo: así las líneas, los
+   datos y los botones de las tres tarjetas quedan alineados */
+.producto-abajo{
+    display:flex;
+    flex-direction:column;
+    align-items:stretch;
+    width:100%;
+    margin-top:auto;
+    padding-top:22px;
+}
+
+.producto-datos{
+    padding-top:18px;
+    border-top:1px solid #E2E8F0;
+    font-size:13px;
+    color:var(--pizarra-claro);
+}
+
+.producto-boton{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    height:46px;
+    margin-top:24px;
+    border-radius:50px;
+    background:var(--noche);
+    font-size:15px;
+    font-weight:600;
+    color:#fff;
+    text-decoration:none;
+    transition:background-color .2s ease, transform .2s cubic-bezier(.23, 1, .32, 1);
+}
+
+.producto-boton:hover{
+    background:#1E293B;
+}
+
+.producto-boton:active{
+    transform:scale(.98);
+}
+
+.producto-link{
+    align-self:center;
+    margin-top:14px;
+    font-size:14px;
+    color:var(--pizarra-claro);
+    text-decoration:none;
+    transition:color .2s ease;
+}
+
+.producto-link:hover{
+    color:var(--noche);
+}
+
+/* ============================================================
+   PULSOFIRME APP
+   Mismo celeste muy claro que Contacto, de borde a borde. A la
+   izquierda la volanta celeste, el título grande, el texto y el
+   botón azul noche. A la derecha un celular dibujado con CSS
+   (marco azul noche, isla arriba y botones al costado) donde va
+   la captura de la app.
+   ============================================================ */
+.seccion-app{
+    background:#EEF7FD;
+    /* Brillo celeste suave arriba a la izquierda, igual que Contacto */
+    background-image:radial-gradient(80% 70% at 0% 0%, rgba(160, 215, 244, .35), transparent 60%);
+}
+
+/* La sección de Equipo, que viene después, recupera su aire arriba */
+.seccion-app + .seccion-equipo{
+    padding-top:clamp(88px, 10vw, 140px);
+}
+
+.app{
+    display:grid;
+    grid-template-columns:minmax(0, 1fr) minmax(0, 1fr);
+    align-items:center;
+    column-gap:clamp(48px, 7vw, 112px);
+    row-gap:48px;
+}
+
+.app-volanta{
+    display:block;
+    font-size:14px;
+    font-weight:700;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:#2B8BC6;
+}
+
+.app-titulo{
+    margin-top:18px;
+    font-size:clamp(2.5rem, 4.6vw, 3.75rem);
+    font-weight:600;
+    line-height:1.04;
+    letter-spacing:-0.035em;
+    color:var(--noche);
+}
+
+.app-bajada{
+    margin-top:24px;
+    max-width:48ch;
+    font-size:17px;
+    line-height:1.7;
+    color:var(--pizarra);
+}
+
+/* Botón azul noche como el de Contacto, con la flecha del menú */
+.app-boton{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    height:50px;
+    margin-top:36px;
+    padding:0 28px;
+    border-radius:50px;
+    background:var(--noche);
+    font-size:15px;
+    font-weight:600;
+    color:#fff;
+    text-decoration:none;
+    transition:background-color .2s ease, transform .2s cubic-bezier(.23, 1, .32, 1);
+}
+
+.app-boton svg{
+    width:10px;
+    height:9px;
+    transition:transform .25s cubic-bezier(.4, 0, .2, 1);
+}
+
+.app-boton:hover{
+    background:#1E293B;
+}
+
+.app-boton:hover svg{
+    transform:translateX(3px);
+}
+
+.app-boton:active{
+    transform:scale(.97);
+}
+
+/* ---------- CELULAR ---------- */
+.app-visual{
+    position:relative;
+    display:flex;
+    justify-content:center;
+}
+
+/* Brillo celeste detrás del celular */
+.app-visual::before{
+    content:"";
+    position:absolute;
+    top:50%;
+    left:50%;
+    width:min(460px, 90%);
+    aspect-ratio:1;
+    border-radius:50%;
+    background:radial-gradient(closest-side, rgba(160, 215, 244, .7), transparent);
+    transform:translate(-50%, -50%);
+    pointer-events:none;
+}
+
+.celular{
+    position:relative;
+    width:clamp(220px, 19vw, 260px);
+    /* Un poco más bajo que un iPhone: la captura entra entera y
+       abajo queda un margen para que las esquinas redondas no
+       corten la barra de pestañas de la app */
+    aspect-ratio:9 / 19;
+    padding:10px;
+    border-radius:48px;
+    background:var(--noche);
+    box-shadow:
+        inset 0 0 0 2px #334155,
+        0 40px 80px -30px rgba(15, 42, 61, .45),
+        0 16px 34px -18px rgba(15, 42, 61, .3);
+}
+
+/* Botones finitos a los costados */
+.celular-boton{
+    position:absolute;
+    width:3px;
+    border-radius:2px;
+    background:#1E293B;
+}
+
+.celular-boton-volumen{
+    left:-3px;
+    top:22%;
+    height:12%;
+}
+
+.celular-boton-power{
+    right:-3px;
+    top:28%;
+    height:16%;
+}
+
+.celular-pantalla{
+    position:relative;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    border-radius:38px;
+    background:#fff;
+}
+
+.celular-pantalla img{
+    display:block;
+    width:100%;
+    height:100%;
+    /* La captura entra entera, sin recortar los costados; el
+       espacio que sobra queda abajo, como en un celular real */
+    object-fit:contain;
+    object-position:top center;
+}
+
+/* La isla negra de arriba */
+.celular-isla{
+    position:absolute;
+    top:12px;
+    left:50%;
+    width:32%;
+    height:24px;
+    border-radius:20px;
+    background:var(--noche);
+    transform:translateX(-50%);
+}
+
+/* ---------- TABLET Y CELULAR ---------- */
+@media(max-width:980px){
+    .app{
+        grid-template-columns:1fr;
+    }
+}
+
+/* ============================================================
+   EQUIPO
+   A la izquierda el texto, a la derecha una tarjeta alta con la
+   foto del equipo teñida en los azules de la marca, el título en
+   blanco abajo y un botón de vidrio. Toda la tarjeta lleva a la
+   página Empresa. Al pasar el puntero la foto se acerca apenas y
+   la flecha se mueve en diagonal.
+   ============================================================ */
+.seccion-equipo{
+    padding-top:0;
+}
+
+.equipo{
+    display:grid;
+    grid-template-columns:minmax(0, 1fr) minmax(0, 470px);
+    align-items:center;
+    column-gap:clamp(48px, 8vw, 140px);
+    row-gap:48px;
+}
+
+.equipo-texto .seccion-bajada + .seccion-bajada{
+    margin-top:14px;
+}
+
+.equipo-tarjeta{
+    position:relative;
+    display:flex;
+    align-items:flex-end;
+    aspect-ratio:3 / 4;
+    overflow:hidden;
+    border-radius:24px;
+    /* Fondo mientras no esté la foto: los azules de la marca */
+    background:linear-gradient(160deg, #A0D7F4 0%, #4C8DB8 45%, #0F2A3D 100%);
+    color:#fff;
+    text-decoration:none;
+    isolation:isolate;
+}
+
+.equipo-foto{
+    position:absolute;
+    inset:0;
+    z-index:-2;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    /* El equipo está a la derecha de la foto: se corre el encuadre
+       para que queden en el centro de la tarjeta */
+    object-position:100% 50%;
+    filter:grayscale(1) contrast(1.05);
+    transition:transform .8s cubic-bezier(.23, 1, .32, 1);
+}
+
+/* Tinte de la marca sobre la foto: celeste arriba y azul noche
+   abajo, para que el título y el botón se lean siempre */
+.equipo-tarjeta::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    z-index:-1;
+    background:
+        linear-gradient(180deg, rgba(160, 215, 244, .28) 0%, rgba(11, 79, 120, .38) 50%, rgba(15, 23, 42, .82) 100%);
+}
+
+.equipo-tarjeta:hover .equipo-foto{
+    transform:scale(1.04);
+}
+
+.equipo-tarjeta-contenido{
+    padding:clamp(28px, 3vw, 36px);
+}
+
+.equipo-tarjeta-titulo{
+    font-size:clamp(1.75rem, 2.4vw, 2.125rem);
+    font-weight:400;
+    line-height:1.12;
+    letter-spacing:-0.02em;
+    color:#fff;
+}
+
+/* Botón de vidrio: 40px de alto, el mismo tamaño que el botón
+   "Contactame" de la referencia */
+.equipo-tarjeta-boton{
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+    height:40px;
+    margin-top:20px;
+    padding:0 20px;
+    border:1px solid rgba(255, 255, 255, .45);
+    border-radius:50px;
+    background:rgba(255, 255, 255, .08);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    font-size:14px;
+    font-weight:500;
+    color:#fff;
+    transition:background-color .25s ease, border-color .25s ease;
+}
+
+.equipo-tarjeta-boton svg{
+    width:12px;
+    height:12px;
+    transition:transform .25s cubic-bezier(.23, 1, .32, 1);
+}
+
+.equipo-tarjeta:hover .equipo-tarjeta-boton{
+    background:rgba(255, 255, 255, .16);
+    border-color:rgba(255, 255, 255, .7);
+}
+
+.equipo-tarjeta:hover .equipo-tarjeta-boton svg{
+    transform:translate(2px, -2px);
+}
+
+/* ============================================================
+   RESPALDO INSTITUCIONAL
+   Igual que la franja de Tecnomotion: una tarjeta ancha con
+   esquinas muy redondeadas y una sombra grande y muy suave, el
+   título chico en mayúsculas con una línea a cada lado, y abajo
+   los logos en gris deslizándose solos de derecha a izquierda.
+   Los bordes de la franja se desvanecen, así los logos aparecen
+   y desaparecen suave. Al pasar el puntero la franja se frena y
+   el logo que tocás toma su color. Colores: los grises y blancos
+   que ya usa la web.
+   ============================================================ */
+.seccion-respaldo{
+    padding-top:0;
+}
+
+.respaldo{
+    padding:clamp(40px, 4.5vw, 60px) 0 clamp(44px, 5vw, 64px);
+    border:1px solid rgba(15, 27, 43, .05);
+    border-radius:28px;
+    background:#fff;
+    box-shadow:0 30px 70px -30px rgba(15, 23, 42, .18),
+               0 10px 30px -18px rgba(15, 23, 42, .08);
+}
+
+/* Título con una línea fina a cada lado que se desvanece */
+.respaldo-titulo{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:20px;
+    font-size:14px;
+    font-weight:500;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    /* En el celeste de la marca */
+    color:#2B8BC6;
+}
+
+.respaldo-titulo::before,
+.respaldo-titulo::after{
+    content:'';
+    width:60px;
+    height:1px;
+}
+
+.respaldo-titulo::before{
+    background:linear-gradient(90deg, transparent, #CBD5E1);
+}
+
+.respaldo-titulo::after{
+    background:linear-gradient(90deg, #CBD5E1, transparent);
+}
+
+/* La ventana corta la franja y desvanece los bordes */
+.respaldo-ventana{
+    margin-top:clamp(36px, 4vw, 48px);
+    overflow:hidden;
+    -webkit-mask-image:linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%);
+    mask-image:linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%);
+}
+
+/* La cinta: las dos copias de la lista seguidas. Se corre la
+   mitad de su largo (una lista entera) y vuelve a empezar */
+.respaldo-cinta{
+    display:flex;
+    align-items:center;
+    width:max-content;
+    animation:cinta 40s linear infinite;
+}
+
+.respaldo-ventana:hover .respaldo-cinta{
+    animation-play-state:paused;
+}
+
+@keyframes cinta{
+    from{ transform:translateX(0); }
+    to{ transform:translateX(-50%); }
+}
+
+/* Cada logo: en gris y apagado; el que tocás, a todo color */
+.respaldo-logo{
+    flex:0 0 auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    height:56px;
+    margin-right:clamp(48px, 5.5vw, 80px);
+    filter:grayscale(1);
+    opacity:.55;
+    text-decoration:none;
+    transition:filter .3s ease, opacity .3s ease;
+}
+
+.respaldo-logo:hover{
+    filter:none;
+    opacity:1;
+}
+
+.respaldo-logo img{
+    display:block;
+    max-height:52px;
+    max-width:200px;
+    width:auto;
+    height:auto;
+    object-fit:contain;
+}
+
+/* Mientras no estén los logos: el nombre escrito en gris */
+.respaldo-nombre{
+    font-size:20px;
+    font-weight:600;
+    letter-spacing:-0.02em;
+    white-space:nowrap;
+    color:#475569;
+}
+
+/* Con menos movimiento pedido: la franja queda quieta y los
+   logos se acomodan centrados en varias filas */
+@media (prefers-reduced-motion: reduce){
+    .respaldo-ventana{
+        -webkit-mask-image:none;
+        mask-image:none;
+    }
+
+    .respaldo-cinta{
+        width:auto;
+        flex-wrap:wrap;
+        justify-content:center;
+        row-gap:24px;
+        animation:none;
+    }
+
+    .respaldo-logo[aria-hidden="true"]{
+        display:none;
+    }
+}
+
+/* ============================================================
+   CONTACTO: AGENDAR UNA REUNIÓN
+   Toda la sección va en un celeste muy claro de la marca, de
+   borde a borde de la pantalla, y cierra la página antes del
+   footer. A la izquierda un título grande; a la derecha un
+   formulario limpio, sin cajas: los campos son solo una línea
+   fina abajo que se pone celeste al escribir. "Soy…" se elige
+   con píldoras y el botón es el celeste de la marca.
+   ============================================================ */
+.seccion-contacto{
+    background:#EEF7FD;
+    /* Brillo celeste suave arriba a la izquierda */
+    background-image:radial-gradient(80% 70% at 0% 0%, rgba(160, 215, 244, .35), transparent 60%);
+}
+
+.contacto{
+    display:grid;
+    grid-template-columns:minmax(0, 0.9fr) minmax(0, 1.1fr);
+    column-gap:clamp(48px, 7vw, 112px);
+    row-gap:48px;
+}
+
+.contacto-volanta{
+    display:block;
+    font-size:14px;
+    font-weight:700;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:#2B8BC6;
+}
+
+.contacto-titulo{
+    margin-top:18px;
+    font-size:clamp(2.5rem, 4.6vw, 3.75rem);
+    font-weight:600;
+    line-height:1.04;
+    letter-spacing:-0.035em;
+    color:var(--noche);
+}
+
+.contacto-bajada{
+    margin-top:20px;
+    max-width:40ch;
+    font-size:17px;
+    line-height:1.6;
+    color:var(--pizarra);
+}
+
+/* El mail, sin subrayado: se pone celeste al pasar el mouse */
+.contacto-mail{
+    display:inline-block;
+    margin-top:36px;
+    font-size:17px;
+    font-weight:500;
+    color:var(--noche);
+    text-decoration:none;
+    transition:color .2s ease;
+}
+
+.contacto-mail:hover{
+    color:#2B8BC6;
+}
+
+/* Ciudad abajo del mail, en gris más suave */
+.contacto-lugar{
+    display:block;
+    margin-top:6px;
+    font-size:15px;
+    color:var(--pizarra-claro);
+}
+
+/* ---------- FORMULARIO ---------- */
+.contacto-form{
+    display:flex;
+    flex-direction:column;
+    gap:30px;
+}
+
+.contacto-fila{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:28px;
+}
+
+.contacto-campo{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    min-width:0;
+    margin:0;
+    padding:0;
+    border:none;
+}
+
+.contacto-etiqueta{
+    padding:0;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--pizarra-claro);
+}
+
+/* Campos sin caja: solo una línea abajo */
+.contacto-campo input,
+.contacto-campo textarea{
+    width:100%;
+    padding:10px 0 12px;
+    border:none;
+    border-bottom:1px solid #C9D9E6;
+    border-radius:0;
+    background:transparent;
+    font:inherit;
+    font-size:17px;
+    color:var(--noche);
+    transition:border-color .25s ease;
+}
+
+.contacto-campo textarea{
+    min-height:84px;
+    line-height:1.5;
+    resize:none;
+}
+
+.contacto-campo input::placeholder,
+.contacto-campo textarea::placeholder{
+    color:#94A3B8;
+}
+
+.contacto-campo input:hover,
+.contacto-campo textarea:hover{
+    border-color:#94A3B8;
+}
+
+.contacto-campo input:focus,
+.contacto-campo textarea:focus{
+    outline:none;
+    border-color:#2B8BC6;
+}
+
+.contacto-campo-error input{
+    border-color:#E57373;
+}
+
+.contacto-error{
+    font-size:13px;
+    color:#C24141;
+}
+
+/* ---------- "SOY…" EN PÍLDORAS ---------- */
+.contacto-chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:8px;
+}
+
+.contacto-chip{
+    position:relative;
+    cursor:pointer;
+}
+
+.contacto-chip input{
+    position:absolute;
+    opacity:0;
+    pointer-events:none;
+}
+
+.contacto-chip span{
+    display:inline-flex;
+    align-items:center;
+    height:38px;
+    padding:0 16px;
+    border:1px solid #C9D9E6;
+    border-radius:50px;
+    background:#fff;
+    font-size:14px;
+    font-weight:500;
+    color:var(--pizarra);
+    transition:background-color .2s ease, border-color .2s ease, color .2s ease;
+}
+
+.contacto-chip:hover span{
+    border-color:#94A3B8;
+    color:var(--noche);
+}
+
+.contacto-chip input:checked + span{
+    border-color:#A0D7F4;
+    background:#C4E8FB;
+    color:#0B4F78;
+}
+
+.contacto-chip input:focus-visible + span{
+    box-shadow:0 0 0 3px rgba(160, 215, 244, .6);
+}
+
+/* ---------- BOTÓN ----------
+   Azul noche para que resalte sobre el fondo celeste */
+.contacto-pie{
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:16px 24px;
+}
+
+.contacto-enviar{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    height:50px;
+    padding:0 28px;
+    border:none;
+    border-radius:50px;
+    background:var(--noche);
+    font:inherit;
+    font-size:15px;
+    font-weight:600;
+    color:#fff;
+    transition:background-color .2s ease, transform .2s cubic-bezier(.23, 1, .32, 1);
+}
+
+.contacto-enviar svg{
+    width:10px;
+    height:9px;
+    transition:transform .25s cubic-bezier(.4, 0, .2, 1);
+}
+
+.contacto-enviar:hover{
+    background:#1E293B;
+}
+
+.contacto-enviar:hover svg{
+    transform:translateX(3px);
+}
+
+.contacto-enviar:active{
+    transform:scale(.97);
+}
+
+.contacto-nota{
+    font-size:13px;
+    color:var(--pizarra-claro);
+}
+
+/* ---------- ENVIADO ---------- */
+.contacto-listo{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    justify-content:center;
+}
+
+.contacto-listo-icono{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:56px;
+    height:56px;
+    border-radius:50%;
+    background:#DCF5E5;
+    color:#15803D;
+}
+
+.contacto-listo-icono svg{
+    width:26px;
+    height:26px;
+}
+
+.contacto-listo-titulo{
+    margin-top:22px;
+    font-size:28px;
+    font-weight:600;
+    letter-spacing:-0.02em;
+    color:var(--noche);
+}
+
+.contacto-listo-texto{
+    margin-top:10px;
+    max-width:42ch;
+    font-size:16px;
+    line-height:1.6;
+    color:var(--pizarra);
+}
+
+.contacto-listo-texto a{
+    color:#2B8BC6;
+    text-decoration:none;
+}
+
+.contacto-otra{
+    margin-top:24px;
+    padding:0;
+    border:none;
+    background:none;
+    font:inherit;
+    font-size:14px;
+    color:var(--pizarra-claro);
+    transition:color .2s ease;
+}
+
+.contacto-otra:hover{
+    color:var(--noche);
+}
+
+/* En celular los campos de a dos van uno abajo del otro */
+@media(max-width:560px){
+    .contacto-fila{
+        grid-template-columns:1fr;
+    }
+}
+
+/* ---------- TABLET Y CELULAR ---------- */
+@media(max-width:980px){
+    .relato,
+    .funciones,
+    .datos,
+    .productos{
+        grid-template-columns:1fr;
+    }
+
+    .dato{
+        padding-bottom:36px;
+    }
+
+    .seccion-cabecera{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .equipo{
+        grid-template-columns:1fr;
+    }
+
+    .equipo-tarjeta{
+        max-width:470px;
+    }
+
+    .respaldo{
+        border-radius:22px;
+    }
+
+    .contacto{
+        grid-template-columns:1fr;
+    }
+
+    .respaldo-ventana{
+        -webkit-mask-image:linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+        mask-image:linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+    }
+}
+
+
+/* ============================================================
+   INICIO CON EL ESTILO DE TESLA
+   Fondos blancos y gris muy claro (#F4F4F4), sin degradés ni
+   brillos. Botones rectangulares de 4px: azul para la acción
+   principal y gris claro para las secundarias.
+   ============================================================ */
+
+/* ---------- FONDOS ---------- */
+.seccion-app,
+.seccion-contacto{
+    background:var(--t-gris);
+    background-image:none;
+}
+
+.relato-item{
+    background:var(--t-gris);
+}
+
+.app-visual::before{
+    display:none;
+}
+
+/* Respaldo: sin sombra, con un borde finito */
+.respaldo{
+    border:1px solid var(--t-borde);
+    box-shadow:none;
+}
+
+/* ---------- BOTONES ---------- */
+.producto-boton,
+.app-boton,
+.contacto-enviar{
+    height:40px;
+    padding:0 24px;
+    border-radius:var(--t-radio);
+    font-size:14px;
+    font-weight:500;
+    transition:background-color .33s ease, color .33s ease;
+}
+
+/* Botones de las tarjetas de productos: gris claro (secundario) */
+.producto-boton{
+    background:var(--t-gris);
+    color:var(--t-texto-2);
+}
+
+.producto-boton:hover{
+    background:var(--t-gris-hover);
+}
+
+/* Acciones principales: negro */
+.app-boton,
+.contacto-enviar{
+    background:var(--t-negro);
+    color:#fff;
+}
+
+.app-boton:hover,
+.contacto-enviar:hover{
+    background:var(--t-negro-hover);
+}
+
+.producto-boton:active,
+.app-boton:active,
+.contacto-enviar:active{
+    transform:none;
+}
+
+/* Sin flechitas adentro de los botones, como en Tesla */
+.app-boton svg,
+.contacto-enviar svg{
+    display:none;
+}
+
+/* Botón sobre la foto del equipo: vidrio claro, sin flecha */
+.equipo-tarjeta-boton svg{
+    display:none;
+}
+
+.equipo-tarjeta-boton{
+    height:40px;
+    padding:0 20px;
+    border:none;
+    border-radius:var(--t-radio);
+    background:rgba(244, 244, 244, .65);
+    color:var(--t-texto);
+    font-weight:500;
+}
+
+.equipo-tarjeta:hover .equipo-tarjeta-boton,
+.equipo-tarjeta-boton:hover{
+    background:rgba(244, 244, 244, .85);
+    border-color:transparent;
+}
+
+/* ---------- FORMULARIO ---------- */
+.contacto-campo input,
+.contacto-campo textarea{
+    border-bottom-color:var(--t-borde-fuerte);
+}
+
+.contacto-campo input:focus,
+.contacto-campo textarea:focus{
+    border-color:var(--t-azul);
+}
+
+/* ---------- "SOY…": LISTA DESPLEGABLE PROPIA ----------
+   Cerrada se ve igual que los otros campos (línea abajo y una
+   flechita). Abierta muestra una tarjeta blanca de puntas de 4px
+   con las opciones; la que señalás se pinta de gris claro y la
+   elegida lleva un tilde azul. Aparece con un fundido corto. */
+.desplegable{
+    position:relative;
+}
+
+.desplegable-boton{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    width:100%;
+    padding:10px 2px 12px 0;
+    border:none;
+    border-bottom:1px solid var(--t-borde-fuerte);
+    background:none;
+    font:inherit;
+    font-size:17px;
+    text-align:left;
+    color:var(--noche);
+    cursor:pointer;
+    transition:border-color .25s ease;
+}
+
+.desplegable-boton:hover{
+    border-color:var(--t-texto-3);
+}
+
+.desplegable-boton:focus-visible,
+.desplegable-abierto .desplegable-boton{
+    outline:none;
+    border-color:var(--t-azul);
+}
+
+.desplegable-vacio{
+    color:#8E8E8E;
+}
+
+.desplegable-boton svg{
+    flex:0 0 auto;
+    width:18px;
+    height:18px;
+    color:var(--t-texto-3);
+    transition:transform .25s cubic-bezier(.23, 1, .32, 1);
+}
+
+.desplegable-abierto .desplegable-boton svg{
+    transform:rotate(180deg);
+}
+
+.contacto-campo-error .desplegable-boton{
+    border-color:#E57373;
+}
+
+.desplegable-lista{
+    position:absolute;
+    top:calc(100% + 8px);
+    left:0;
+    right:0;
+    z-index:10;
+    padding:6px;
+    border:1px solid var(--t-borde);
+    border-radius:var(--t-radio);
+    background:var(--t-blanco);
+    box-shadow:0 8px 24px rgba(23, 26, 32, .08);
+    list-style:none;
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(-4px);
+    transition:opacity .15s ease, transform .15s ease, visibility 0s linear .15s;
+}
+
+.desplegable-abierto .desplegable-lista{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+    transition:opacity .15s ease, transform .15s ease, visibility 0s;
+}
+
+.desplegable-opcion{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    height:40px;
+    padding:0 12px;
+    border-radius:var(--t-radio);
+    font-size:15px;
+    color:var(--t-texto-2);
+    cursor:pointer;
+}
+
+.desplegable-opcion-activa{
+    background:var(--t-gris);
+    color:var(--t-texto);
+}
+
+.desplegable-opcion[aria-selected="true"]{
+    font-weight:500;
+    color:var(--t-texto);
+}
+
+.desplegable-opcion svg{
+    width:16px;
+    height:16px;
+    color:var(--t-azul);
+}
+
+@media(prefers-reduced-motion:reduce){
+    .desplegable-lista,
+    .desplegable-boton svg{
+        transition:none;
+    }
+}
+
+.contacto-campo input::placeholder,
+.contacto-campo textarea::placeholder{
+    color:#8E8E8E;
+}
+
+/* Números de los datos: los tres en el casi negro de la marca */
+.dato-numero,
+.dato-ambar .dato-numero,
+.dato-verde .dato-numero{
+    color:var(--t-texto);
+}
+
+/* El último número (1°) en el azul de los botones */
+.dato-verde .dato-numero{
+    color:var(--t-azul);
+}

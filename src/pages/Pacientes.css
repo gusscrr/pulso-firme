@@ -1,0 +1,246 @@
+/* ============================================================
+   PÁGINA PACIENTES (PulsoFirme App)
+   Lo que no está en MobitV3.css: los celulares, las capturas de
+   la app y la sección de límites claros.
+   ============================================================ */
+
+/* El celular del hero, un poco más chico */
+.pa-celular .celular{
+    width:clamp(210px, 18vw, 250px);
+}
+
+/* ---------- 02 · LA APP POR DENTRO ----------
+   Tres celulares lado a lado sobre un brillo celeste, cada uno
+   con su número, título y una línea de texto abajo */
+.pa-pantallas{
+    display:grid;
+    grid-template-columns:repeat(3, minmax(0, 1fr));
+    gap:clamp(20px, 3vw, 40px);
+}
+
+.pa-pantalla{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+}
+
+.pa-pantalla-celular{
+    position:relative;
+    display:flex;
+    justify-content:center;
+    width:100%;
+    padding:28px 0 32px;
+}
+
+/* Brillo celeste detrás de cada celular */
+.pa-pantalla-celular::before{
+    content:'';
+    position:absolute;
+    top:50%;
+    left:50%;
+    width:min(320px, 100%);
+    aspect-ratio:1;
+    border-radius:50%;
+    background:radial-gradient(closest-side, rgba(160, 215, 244, .55), transparent);
+    transform:translate(-50%, -50%);
+    pointer-events:none;
+}
+
+.pa-pantalla-celular .celular{
+    width:clamp(200px, 17vw, 236px);
+    transition:transform .5s cubic-bezier(.23, 1, .32, 1);
+}
+
+/* Al pasar el mouse el celular sube apenas */
+.pa-pantalla:hover .celular{
+    transform:translateY(-6px);
+}
+
+.pa-pantalla-numero{
+    font-size:13px;
+    color:var(--celeste);
+}
+
+.pa-pantalla-titulo{
+    margin-top:10px;
+    font-size:19px;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    color:var(--noche);
+}
+
+.pa-pantalla-texto{
+    margin-top:8px;
+    max-width:32ch;
+    font-size:15px;
+    line-height:1.65;
+    color:var(--pizarra);
+}
+
+/* ---------- 03 · LÍMITES CLAROS ----------
+   Título a la izquierda; a la derecha la aclaración y la lista */
+.pa-limites{
+    display:grid;
+    grid-template-columns:minmax(0, 1fr) minmax(0, 1fr);
+    align-items:start;
+    column-gap:clamp(40px, 6vw, 96px);
+    row-gap:32px;
+}
+
+.pa-limites .mv-cabecera{
+    margin-bottom:0;
+}
+
+.pa-limites-nota{
+    margin-top:0;
+    padding-top:0;
+    border-top:none;
+}
+
+.pa-lista{
+    display:flex;
+    flex-direction:column;
+    margin-top:28px;
+    list-style:none;
+    border-top:1px solid var(--linea);
+}
+
+.pa-lista li{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:18px 0;
+    border-bottom:1px solid var(--linea);
+    font-size:17px;
+    font-weight:500;
+    color:var(--noche);
+}
+
+.pa-lista svg{
+    flex:0 0 auto;
+    width:20px;
+    height:20px;
+    color:var(--celeste);
+}
+
+/* ---------- 04 · PASOS: tres columnas ---------- */
+.pa-pasos{
+    grid-template-columns:repeat(3, minmax(0, 1fr));
+}
+
+/* ---------- 05 · EN DESARROLLO ---------- */
+.pa-tarjeta-link{
+    margin-top:auto;
+    padding-top:20px;
+}
+
+/* ---------- CIERRE ----------
+   Botones más chicos, con la flechita que se corre al pasar el
+   mouse: uno azul noche y otro blanco con borde */
+.pa-cierre-titulo{
+    margin-top:18px;
+}
+
+.pa-cierre-acciones{
+    gap:12px;
+}
+
+.pa-boton-chico{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:9px;
+    height:42px;
+    padding:0 20px;
+    border-radius:50px;
+    font-size:14px;
+    font-weight:600;
+    text-decoration:none;
+}
+
+.pa-boton-chico svg{
+    width:10px;
+    height:9px;
+    transition:transform .25s cubic-bezier(.4, 0, .2, 1);
+}
+
+.pa-boton-chico:hover svg{
+    transform:translateX(3px);
+}
+
+.pa-boton-borde{
+    border:1px solid #B9D3E6;
+    background:#fff;
+    color:var(--noche);
+    transition:border-color .2s ease, transform .2s cubic-bezier(.23, 1, .32, 1);
+}
+
+.pa-boton-borde:hover{
+    border-color:#7EC4EC;
+}
+
+.pa-boton-borde:active{
+    transform:scale(.97);
+}
+
+/* ============================================================
+   TABLET Y CELULAR
+   ============================================================ */
+@media(max-width:980px){
+    .pa-limites{
+        grid-template-columns:1fr;
+    }
+
+    .pa-pantallas{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media(max-width:560px){
+    .pa-pasos,
+    .pa-pantallas{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(prefers-reduced-motion:reduce){
+    .pa-pantalla-celular .celular{
+        transition:none;
+    }
+}
+
+
+/* ============================================================
+   ESTILO TESLA (igual que el inicio)
+   ============================================================ */
+.pa-pantalla-celular::before{
+    display:none;
+}
+
+.pa-boton-chico{
+    height:40px;
+    padding:0 24px;
+    font-weight:500;
+    border-radius:var(--t-radio);
+    font-size:14px;
+}
+
+.pa-boton-chico svg{
+    display:none;
+}
+
+.pa-boton-borde{
+    border:none;
+    background:var(--t-blanco);
+    color:var(--t-texto-2);
+    transition:background-color .33s ease;
+}
+
+.pa-boton-borde:hover{
+    background:var(--t-gris-hover);
+}
+
+.pa-boton-borde:active{
+    transform:none;
+}

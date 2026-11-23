@@ -1,0 +1,960 @@
+/* ============================================================
+   PÁGINA MOBIT-V3
+   Mismo estilo que el inicio: blancos y gris muy claro de
+   fondo, textos en grises neutros, botones rectangulares de 4px
+   (negro el principal, gris claro el secundario) y el celeste de
+   la marca para volantas y palabras destacadas.
+   ============================================================ */
+.mv{
+    /* Textos y bordes en los grises neutros de Tesla; el celeste
+       queda para las volantas y las palabras destacadas */
+    --noche:var(--t-texto);
+    --pizarra:var(--t-texto-2);
+    --pizarra-claro:var(--t-texto-3);
+    --celeste:#2B8BC6;
+    --celeste-claro:#A0D7F4;
+    --linea:var(--t-borde);
+}
+
+.mv em{
+    font-style:normal;
+    color:var(--celeste);
+}
+
+/* ---------- BOTONES Y LINKS ---------- */
+.mv-boton{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    height:50px;
+    padding:0 28px;
+    border-radius:50px;
+    background:var(--noche);
+    font-size:15px;
+    font-weight:600;
+    color:#fff;
+    text-decoration:none;
+    transition:background-color .2s ease, transform .2s cubic-bezier(.23, 1, .32, 1);
+}
+
+.mv-boton:hover{
+    background:#1E293B;
+}
+
+.mv-boton:active{
+    transform:scale(.97);
+}
+
+/* Versión chica, con flechita que se corre al pasar el mouse */
+.mv-boton-chico{
+    gap:9px;
+    height:42px;
+    padding:0 20px;
+    font-size:14px;
+}
+
+.mv-boton-chico svg{
+    width:10px;
+    height:9px;
+    transition:transform .25s cubic-bezier(.4, 0, .2, 1);
+}
+
+.mv-boton-chico:hover svg{
+    transform:translateX(3px);
+}
+
+.mv-link{
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+    font-size:15px;
+    font-weight:600;
+    color:var(--celeste);
+    text-decoration:none;
+    transition:color .2s ease;
+}
+
+.mv-link svg{
+    width:10px;
+    height:9px;
+    transition:transform .25s cubic-bezier(.4, 0, .2, 1);
+}
+
+.mv-link:hover{
+    color:#0B4F78;
+}
+
+.mv-link:hover svg{
+    transform:translateX(3px);
+}
+
+/* ---------- ESTADOS (Disponible hoy / En desarrollo) ---------- */
+.mv-estado{
+    display:inline-flex;
+    align-items:center;
+    align-self:flex-start;
+    gap:7px;
+    height:23px;
+    padding:0 10px;
+    border-radius:50px;
+    font-size:12px;
+    font-weight:700;
+    white-space:nowrap;
+}
+
+.mv-estado::before{
+    content:'';
+    width:6px;
+    height:6px;
+    border-radius:50%;
+}
+
+.mv-estado-disponible{
+    background:#E2F0E7;
+    color:#1F6B4A;
+}
+
+/* El punto verde "prendido", igual que en el inicio */
+.mv-estado-disponible::before{
+    background:#22C55E;
+    box-shadow:0 0 6px 1px rgba(34, 197, 94, .75);
+    animation:mv-prendido 2s cubic-bezier(.4, 0, .2, 1) infinite;
+}
+
+@keyframes mv-prendido{
+    0%{
+        box-shadow:0 0 6px 1px rgba(34, 197, 94, .75),
+                   0 0 0 0 rgba(34, 197, 94, .55);
+    }
+    70%,
+    100%{
+        box-shadow:0 0 6px 1px rgba(34, 197, 94, .75),
+                   0 0 0 6px rgba(34, 197, 94, 0);
+    }
+}
+
+.mv-estado-desarrollo{
+    background:#EEF1F5;
+    color:#5B6878;
+}
+
+.mv-estado-desarrollo::before{
+    background:#94A3B8;
+}
+
+/* Etiqueta de versión, con borde celeste */
+.mv-chip{
+    display:inline-flex;
+    align-items:center;
+    height:23px;
+    padding:0 10px;
+    border:1px solid #7EC4EC;
+    border-radius:50px;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--celeste);
+    white-space:nowrap;
+}
+
+/* ============================================================
+   HERO
+   Celeste muy claro de borde a borde, como Contacto. A la
+   izquierda el título y los botones; a la derecha la foto
+   del guante.
+   ============================================================ */
+.mv-hero{
+    background:#EEF7FD;
+    background-image:radial-gradient(70% 80% at 0% 0%, rgba(160, 215, 244, .4), transparent 60%),
+                     radial-gradient(50% 60% at 100% 100%, rgba(160, 215, 244, .25), transparent 70%);
+    /* 62px de la barra de arriba + el aire del hero */
+    padding:calc(62px + clamp(56px, 7vw, 104px)) 0 clamp(72px, 8vw, 120px);
+}
+
+.mv-hero-grilla{
+    display:grid;
+    grid-template-columns:minmax(0, 1.05fr) minmax(0, .95fr);
+    align-items:center;
+    column-gap:clamp(48px, 7vw, 112px);
+    row-gap:56px;
+}
+
+.mv-hero-volanta{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    font-size:14px;
+    font-weight:700;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:var(--celeste);
+}
+
+/* Rayita antes de "Mobit-v3", como en la referencia */
+.mv-hero-volanta::before{
+    content:'';
+    width:32px;
+    height:1px;
+    background:var(--celeste);
+}
+
+.mv-hero-titulo{
+    margin-top:22px;
+    font-size:clamp(2.75rem, 5.2vw, 4.5rem);
+    font-weight:600;
+    line-height:1.04;
+    letter-spacing:-0.04em;
+    color:var(--noche);
+}
+
+.mv-hero-bajada{
+    margin-top:24px;
+    max-width:44ch;
+    font-size:clamp(17px, 1.4vw, 19px);
+    line-height:1.6;
+    color:var(--pizarra);
+}
+
+.mv-hero-acciones{
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:16px 28px;
+    margin-top:36px;
+}
+
+.mv-hero-texto .mv-estado{
+    margin-top:28px;
+}
+
+/* Carrusel de fotos del guante: esquinas redondeadas y una
+   sombra suave. Las fotos van una arriba de la otra y la activa
+   aparece con un fundido; se recortan un poco a los costados para
+   que el guante quede en el centro. */
+.mv-hero-foto{
+    position:relative;
+    overflow:hidden;
+    aspect-ratio:4 / 3.6;
+    border-radius:28px;
+    background:#DCEAF5;
+    box-shadow:0 40px 80px -40px rgba(15, 42, 61, .45),
+               0 16px 34px -20px rgba(15, 42, 61, .25);
+}
+
+.mv-hero-foto img{
+    position:absolute;
+    inset:0;
+    display:block;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:52% 50%;
+    opacity:0;
+    transform:scale(1.04);
+    transition:opacity 1s cubic-bezier(.4, 0, .2, 1),
+               transform 6s cubic-bezier(.4, 0, .2, 1);
+}
+
+.mv-hero-foto img.mv-foto-activa{
+    opacity:1;
+    transform:scale(1);
+}
+
+/* Puntitos abajo al centro, sobre una pastilla de vidrio */
+.mv-hero-puntos{
+    position:absolute;
+    left:50%;
+    bottom:18px;
+    z-index:1;
+    display:flex;
+    gap:8px;
+    padding:8px 10px;
+    border-radius:50px;
+    background:rgba(15, 23, 42, .35);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    transform:translateX(-50%);
+}
+
+.mv-hero-puntos button{
+    width:8px;
+    height:8px;
+    padding:0;
+    border:none;
+    border-radius:50px;
+    background:rgba(255, 255, 255, .55);
+    cursor:pointer;
+    transition:width .3s cubic-bezier(.4, 0, .2, 1), background-color .3s ease;
+}
+
+.mv-hero-puntos button:hover{
+    background:rgba(255, 255, 255, .85);
+}
+
+/* El punto de la foto que se ve se estira y queda blanco */
+.mv-hero-puntos .mv-punto-activo{
+    width:22px;
+    background:#fff;
+}
+
+/* ============================================================
+   BLOQUES NUMERADOS
+   Se alternan blanco y gris muy claro para separar cada bloque.
+   ============================================================ */
+.mv-seccion{
+    background:#fff;
+    padding-block:clamp(88px, 10vw, 136px);
+}
+
+.mv-seccion-gris{
+    background:#F8FAFC;
+}
+
+/* Dos bloques blancos seguidos: el de abajo no suma su espacio de
+   arriba, así no queda un hueco doble entre uno y otro */
+.mv-seccion:not(.mv-seccion-gris) + .mv-seccion:not(.mv-seccion-gris){
+    padding-top:0;
+}
+
+.mv-cabecera{
+    margin-bottom:clamp(40px, 5vw, 64px);
+}
+
+.mv-volanta{
+    font-size:14px;
+    font-weight:700;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:var(--celeste);
+}
+
+.mv-volanta .mono{
+    font-weight:500;
+    letter-spacing:0.08em;
+}
+
+.mv-titulo{
+    margin-top:18px;
+    max-width:22ch;
+    font-size:clamp(2.25rem, 4.2vw, 3.5rem);
+    font-weight:600;
+    line-height:1.06;
+    letter-spacing:-0.035em;
+    color:var(--noche);
+}
+
+.mv-bajada{
+    margin-top:20px;
+    max-width:56ch;
+    font-size:17px;
+    line-height:1.65;
+    color:var(--pizarra);
+}
+
+/* Cajita que aparece al scrollear: estira la tarjeta de adentro
+   para que todas las de una fila midan lo mismo */
+.mv-celda{
+    display:flex;
+}
+
+.mv-celda > *{
+    flex:1;
+}
+
+/* ---------- 01 · DATOS ---------- */
+.mv-datos{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    column-gap:clamp(20px, 2vw, 28px);
+}
+
+.mv-dato{
+    padding-top:clamp(28px, 3vw, 40px);
+    border-top:1px solid #D5DEE7;
+}
+
+.mv-dato-numero{
+    font-size:clamp(2.75rem, 4.5vw, 3.75rem);
+    font-weight:600;
+    line-height:1;
+    letter-spacing:-0.04em;
+    color:var(--noche);
+}
+
+.mv-dato-acento .mv-dato-numero{
+    color:var(--celeste);
+}
+
+.mv-dato-texto{
+    margin-top:18px;
+    max-width:30ch;
+    font-size:16px;
+    line-height:1.7;
+    color:var(--pizarra);
+}
+
+/* ---------- 02 · VERSIONES ---------- */
+.mv-versiones{
+    display:grid;
+    grid-template-columns:repeat(3, minmax(0, 1fr));
+    gap:20px;
+}
+
+.mv-version{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    padding:28px 28px 30px;
+    border:1px solid var(--linea);
+    border-radius:24px;
+    background:#fff;
+    will-change:transform;
+}
+
+/* La última versión, resaltada en celeste */
+.mv-version-destacada{
+    border-color:var(--celeste-claro);
+    background:#F2F9FE;
+}
+
+/* Tres rayitas arriba: cuántas cosas suma cada versión */
+.mv-version-barras{
+    display:flex;
+    gap:5px;
+}
+
+.mv-version-barras span{
+    width:26px;
+    height:3px;
+    border-radius:3px;
+    background:var(--linea);
+}
+
+.mv-version-barras .mv-barra-llena{
+    background:var(--celeste);
+}
+
+.mv-version-etiqueta{
+    display:inline-flex;
+    align-items:center;
+    height:26px;
+    margin-top:16px;
+    padding:0 12px;
+    border:1px solid #7EC4EC;
+    border-radius:50px;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--celeste);
+}
+
+/* La de la versión destacada va rellena de celeste */
+.mv-version-etiqueta-llena{
+    border-color:var(--celeste);
+    background:var(--celeste);
+    color:#fff;
+}
+
+.mv-version .mv-estado{
+    margin-top:14px;
+}
+
+.mv-version-incluye{
+    margin-top:18px;
+    font-size:14px;
+    font-weight:600;
+    color:var(--celeste);
+}
+
+.mv-version-titulo{
+    margin-top:6px;
+    font-size:clamp(1.75rem, 2.4vw, 2.125rem);
+    font-weight:600;
+    line-height:1.1;
+    letter-spacing:-0.03em;
+    color:var(--noche);
+}
+
+.mv-version-sub{
+    margin-top:6px;
+    font-size:16px;
+    font-weight:500;
+    color:var(--noche);
+}
+
+.mv-version-texto{
+    margin-top:14px;
+    font-size:15.5px;
+    line-height:1.7;
+    color:var(--pizarra);
+}
+
+.mv-version-lista{
+    align-self:stretch;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    margin-top:22px;
+    padding-top:20px;
+    border-top:1px solid var(--linea);
+    list-style:none;
+}
+
+.mv-version-lista li{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:15px;
+}
+
+.mv-version-lista svg,
+.mv-version-lista li > span{
+    flex:0 0 auto;
+    width:16px;
+    text-align:center;
+}
+
+.mv-tiene{
+    color:var(--noche);
+}
+
+.mv-tiene svg{
+    height:16px;
+    color:var(--celeste);
+}
+
+.mv-falta{
+    color:#94A3B8;
+}
+
+.mv-version-boton{
+    align-self:stretch;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    height:48px;
+    margin-top:auto;
+    border:1px solid #CBD5E1;
+    border-radius:50px;
+    background:#fff;
+    font-size:15px;
+    font-weight:600;
+    color:var(--noche);
+    text-decoration:none;
+    transition:background-color .2s ease, border-color .2s ease, transform .2s cubic-bezier(.23, 1, .32, 1);
+}
+
+/* La lista deja aire y el botón queda pegado abajo: así los
+   botones de las tres versiones quedan alineados */
+.mv-version-lista{
+    margin-bottom:28px;
+}
+
+.mv-version-boton:hover{
+    border-color:#94A3B8;
+}
+
+.mv-version-boton-principal{
+    border-color:var(--noche);
+    background:var(--noche);
+    color:#fff;
+}
+
+.mv-version-boton-principal:hover{
+    border-color:#1E293B;
+    background:#1E293B;
+}
+
+.mv-version-boton:active{
+    transform:scale(.98);
+}
+
+/* ---------- 03 Y 04 · TARJETAS ---------- */
+.mv-grilla{
+    display:grid;
+    grid-template-columns:repeat(3, minmax(0, 1fr));
+    gap:16px;
+}
+
+.mv-grilla-4{
+    grid-template-columns:repeat(4, minmax(0, 1fr));
+}
+
+/* Mismo estilo que las tarjetas del inicio: gris azulado muy
+   claro, sin borde */
+.mv-tarjeta{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    padding:clamp(24px, 2.4vw, 32px);
+    border-radius:22px;
+    background:#F4F7FA;
+    will-change:transform;
+}
+
+.mv-tarjeta-chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+}
+
+.mv-tarjeta-titulo{
+    margin-top:22px;
+    font-size:18px;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    color:var(--noche);
+}
+
+.mv-tarjeta-titulo-arriba{
+    margin-top:0;
+}
+
+.mv-tarjeta-texto{
+    margin-top:10px;
+    font-size:15px;
+    line-height:1.7;
+    color:var(--pizarra);
+}
+
+/* Aclaración: acompaña, no diagnostica. Sin caja: una línea
+   fina arriba, un escudo celeste y dos líneas de texto */
+.mv-nota{
+    display:flex;
+    align-items:flex-start;
+    gap:18px;
+    margin-top:clamp(40px, 4vw, 56px);
+    padding-top:28px;
+    border-top:1px solid var(--linea);
+}
+
+.mv-nota-icono{
+    flex:0 0 auto;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:44px;
+    height:44px;
+    border:1px solid #CFE6F5;
+    border-radius:50%;
+    background:#EEF7FD;
+    color:var(--celeste);
+}
+
+.mv-nota-icono svg{
+    width:22px;
+    height:22px;
+}
+
+.mv-nota-titulo{
+    font-size:16px;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    color:var(--noche);
+}
+
+.mv-nota-texto{
+    margin-top:4px;
+    max-width:none;
+    font-size:15px;
+    line-height:1.65;
+    color:var(--pizarra-claro);
+}
+
+/* ---------- 06 · PASOS ---------- */
+.mv-pasos{
+    display:grid;
+    grid-template-columns:repeat(4, minmax(0, 1fr));
+    gap:clamp(20px, 2vw, 28px);
+    list-style:none;
+}
+
+.mv-paso{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    padding-top:24px;
+    border-top:1px solid #CBD5E1;
+}
+
+.mv-paso-numero{
+    font-size:13px;
+    color:var(--celeste);
+}
+
+.mv-paso .mv-estado{
+    margin-top:14px;
+}
+
+.mv-paso-titulo{
+    margin-top:16px;
+    font-size:19px;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    color:var(--noche);
+}
+
+.mv-paso-texto{
+    margin-top:8px;
+    font-size:15px;
+    line-height:1.7;
+    color:var(--pizarra);
+}
+
+/* ============================================================
+   CIERRE
+   Mismo fondo que la sección de Contacto del inicio: celeste
+   muy claro con un brillo suave arriba a la izquierda. Todo
+   centrado.
+   ============================================================ */
+.mv-cierre{
+    background:#EEF7FD;
+    background-image:radial-gradient(80% 70% at 0% 0%, rgba(160, 215, 244, .35), transparent 60%);
+    padding-block:clamp(96px, 11vw, 152px);
+    text-align:center;
+}
+
+.mv-cierre-titulo{
+    font-size:clamp(2.25rem, 4.4vw, 3.75rem);
+    font-weight:600;
+    line-height:1.06;
+    letter-spacing:-0.035em;
+    color:var(--noche);
+}
+
+.mv-cierre-texto{
+    max-width:52ch;
+    margin:20px auto 0;
+    font-size:17px;
+    line-height:1.65;
+    color:var(--pizarra);
+}
+
+.mv-cierre-acciones{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:16px 28px;
+    margin-top:36px;
+}
+
+/* ---------- TEXTOS JUSTIFICADOS, como en el resto de la web ---------- */
+.mv-hero-bajada,
+.mv-bajada,
+.mv-dato-texto,
+.mv-version-texto,
+.mv-tarjeta-texto,
+.mv-nota-texto,
+.mv-paso-texto{
+    text-align:justify;
+    hyphens:manual;
+}
+
+/* ============================================================
+   TABLET Y CELULAR
+   ============================================================ */
+@media(max-width:980px){
+    .mv-hero-grilla,
+    .mv-versiones,
+    .mv-datos{
+        grid-template-columns:1fr;
+    }
+
+
+    .mv-grilla,
+    .mv-grilla-4,
+    .mv-pasos{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+    }
+
+    .mv-dato{
+        padding-bottom:32px;
+    }
+
+    .mv-pasos{
+        row-gap:36px;
+    }
+}
+
+@media(max-width:560px){
+    .mv-grilla,
+    .mv-grilla-4,
+    .mv-pasos{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(prefers-reduced-motion:reduce){
+    .mv-estado-disponible::before{
+        animation:none;
+    }
+
+    .mv-hero-foto img{
+        transform:none;
+        transition:opacity .3s ease;
+    }
+}
+
+
+/* ============================================================
+   ESTILO TESLA (igual que el inicio)
+   Fondos blancos y gris #F4F4F4 sin degradés ni sombras.
+   Botones de 40px con puntas de 4px: negro el principal y gris
+   claro el secundario, sin flechas.
+   ============================================================ */
+.mv-hero,
+.mv-cierre{
+    background:var(--t-gris);
+    background-image:none;
+}
+
+.mv-seccion-gris{
+    background:var(--t-gris);
+}
+
+.mv-tarjeta{
+    background:var(--t-gris);
+}
+
+.mv-hero-foto{
+    box-shadow:none;
+}
+
+.mv-nota-icono{
+    border-color:var(--t-borde);
+    background:var(--t-gris);
+}
+
+/* Números del bloque "El problema": negros, y el último en azul
+   como el 1° del inicio */
+.mv-dato-numero{
+    color:var(--t-texto);
+}
+
+.mv-dato-acento .mv-dato-numero{
+    color:var(--t-azul);
+}
+
+.mv-dato{
+    border-top-color:var(--t-borde-fuerte);
+}
+
+/* ---------- BOTONES ---------- */
+.mv-boton,
+.mv-boton-chico{
+    gap:8px;
+    font-weight:500;
+    height:40px;
+    padding:0 24px;
+    border-radius:var(--t-radio);
+    background:var(--t-negro);
+    font-size:14px;
+    transition:background-color .33s ease;
+}
+
+.mv-boton:hover{
+    background:var(--t-negro-hover);
+}
+
+.mv-boton:active{
+    transform:none;
+}
+
+.mv-boton svg{
+    display:none;
+}
+
+/* Al lado del botón negro, el link se vuelve botón gris */
+.mv-hero-acciones .mv-link,
+.mv-cierre-acciones .mv-link{
+    height:40px;
+    padding:0 24px;
+    border-radius:var(--t-radio);
+    background:var(--t-blanco);
+    font-family:var(--fuente-boton);
+    font-size:14px;
+    font-weight:500;
+    color:var(--t-texto-2);
+    transition:background-color .33s ease;
+}
+
+.mv-hero-acciones .mv-link:hover,
+.mv-cierre-acciones .mv-link:hover{
+    background:var(--t-gris-hover);
+    color:var(--t-texto-2);
+}
+
+.mv-hero-acciones .mv-link svg,
+.mv-cierre-acciones .mv-link svg{
+    display:none;
+}
+
+.mv-hero-acciones,
+.mv-cierre-acciones{
+    gap:12px;
+}
+
+/* Botones de las tarjetas de versiones */
+.mv-version-boton{
+    height:40px;
+    border:none;
+    border-radius:var(--t-radio);
+    background:var(--t-gris);
+    font-size:14px;
+    color:var(--t-texto-2);
+    transition:background-color .33s ease;
+}
+
+.mv-version-boton:hover{
+    background:var(--t-gris-hover);
+}
+
+.mv-version-boton-principal{
+    background:var(--t-negro);
+    color:#fff;
+}
+
+.mv-version-boton-principal:hover{
+    background:var(--t-negro-hover);
+}
+
+.mv-version-boton:active{
+    transform:none;
+}
+
+/* La versión destacada: blanca con borde negro finito */
+.mv-version-destacada{
+    border-color:var(--t-negro);
+    background:var(--t-blanco);
+}
+
+/* El botón principal del hero de cada página va en azul, sí o sí */
+.mv-hero-acciones .mv-boton{
+    background:var(--t-azul);
+}
+
+.mv-hero-acciones .mv-boton:hover{
+    background:var(--t-azul-hover);
+}
+
+/* Los tres botones de las tarjetas de versiones van en gris */
+.mv-version-boton{
+    font-weight:500;
+}
+
+.mv-version-boton-principal{
+    background:var(--t-gris);
+    color:var(--t-texto-2);
+}
+
+.mv-version-boton-principal:hover{
+    background:var(--t-gris-hover);
+}
+
+/* Línea de arriba de los pasos en el gris neutro */
+.mv-paso{
+    border-top-color:var(--t-borde-fuerte);
+}
