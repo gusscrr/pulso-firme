@@ -331,11 +331,13 @@
     background:rgba(255, 255, 255, .12);
 }
 
-/* El ícono de Soporte: mismo alto a la vista que el de idioma y
-   centrado en su cuadrado, a la misma altura que el de idioma */
+/* El ícono de Soporte (globo con ?): mismo alto a la vista que el
+   de idioma y a la misma altura. El globo tiene la colita abajo,
+   por eso se acomoda un poquito para que quede centrado */
 .nav-ayuda svg{
-    width:22px;
-    height:22px;
+    width:23px;
+    height:23px;
+    transform:translate(-0.5px, -0.75px);
 }
 
 /* El dibujo de idioma está apenas corrido hacia arriba: lo

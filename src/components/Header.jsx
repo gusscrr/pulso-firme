@@ -125,9 +125,8 @@ function Header() {
             </svg>
           </button>
 
-          {/* Soporte: círculo con un signo de pregunta grande y el
-              punto lleno, mismo trazo que el de idioma. Lleva a la
-              página de Soporte */}
+          {/* Soporte: globo de chat con un signo de pregunta, mismo
+              trazo que el de idioma. Lleva a la página de Soporte */}
           <NavLink
             to="/soporte"
             className={({ isActive }) => `nav-icono nav-ayuda${isActive ? ' activo' : ''}`}
@@ -144,9 +143,9 @@ function Header() {
               strokeLinejoin="round"
               aria-hidden="true"
             >
-              <circle cx="12" cy="12" r="9" />
-              <path d="M9.25 9.5a2.75 2.75 0 1 1 4.05 2.42c-.78 .42 -1.3 1.03 -1.3 1.9v.43" />
-              <circle cx="12" cy="16.9" r=".95" fill="currentColor" stroke="none" />
+              <path d="M12 20.5c4.97 0 9 -3.6 9 -8.25s-4.03 -8.25 -9 -8.25s-9 3.6 -9 8.25c0 1.94 .7 3.73 1.88 5.15l-.88 3.35l3.6 -1.2c1.3 .62 2.8 .95 4.4 .95z" />
+              <path d="M9.6 10a2.4 2.4 0 1 1 3.45 2.15c-.62 .3 -1.05 .82 -1.05 1.5v.35" />
+              <circle cx="12" cy="16.6" r=".85" fill="currentColor" stroke="none" />
             </svg>
           </NavLink>
 
