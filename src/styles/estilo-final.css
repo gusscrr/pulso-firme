@@ -331,10 +331,17 @@
     background:rgba(255, 255, 255, .12);
 }
 
-/* El ícono de Soporte, un toque más chico que el de idioma */
+/* El ícono de Soporte: mismo alto a la vista que el de idioma y
+   centrado en su cuadrado, a la misma altura que el de idioma */
 .nav-ayuda svg{
-    width:21px;
-    height:21px;
+    width:22px;
+    height:22px;
+}
+
+/* El dibujo de idioma está apenas corrido hacia arriba: lo
+   bajamos medio píxel para que los dos queden en la misma línea */
+.nav-acciones > .nav-icono:not(.nav-ayuda) svg{
+    transform:translateY(0.5px);
 }
 
 /* ---------- AJUSTES DEL TESTEO GENERAL ---------- */
