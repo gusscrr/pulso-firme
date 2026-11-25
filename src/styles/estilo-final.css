@@ -330,3 +330,51 @@
 .nav-oscura .nav-icono.activo{
     background:rgba(255, 255, 255, .12);
 }
+
+/* El ícono de Soporte, un toque más chico que el de idioma */
+.nav-ayuda svg{
+    width:21px;
+    height:21px;
+}
+
+/* ---------- AJUSTES DEL TESTEO GENERAL ---------- */
+
+/* Puntos del carrusel de Mobit-v3: se ven igual de chicos, pero
+   la zona para tocarlos con el dedo es de 32px de alto */
+.mv-hero-puntos button{
+    position:relative;
+}
+
+.mv-hero-puntos button::after{
+    content:'';
+    position:absolute;
+    inset:-12px -4px;
+}
+
+/* Ícono de Soporte: sin subrayado en ningún estado */
+.nav-ayuda,
+.nav-ayuda:hover{
+    text-decoration:none;
+}
+
+/* Footer en celular: enlaces más altos para tocarlos cómodo,
+   con el mismo espacio a la vista */
+@media(max-width:700px){
+    .footer-list{
+        gap:2px;
+    }
+
+    .footer-list a{
+        display:inline-flex;
+        align-items:center;
+        min-height:32px;
+    }
+}
+
+/* El dibujo del mouse que invita a bajar no tiene sentido en
+   pantallas táctiles (celular y tablet): ahí se esconde */
+@media(hover:none) and (pointer:coarse){
+    .hero-scroll{
+        display:none;
+    }
+}

@@ -150,7 +150,12 @@ function Header() {
             </svg>
           </NavLink>
 
-          <Link to="/contacto" className="btn btn-vidrio-suave nav-btn">
+          <Link
+            to="/contacto"
+            className="btn btn-vidrio-suave nav-btn"
+            aria-label={t('Agendar Reunión', 'Book a Meeting')}
+            onClick={cerrar}
+          >
             <span>{t('Agendar Reunión', 'Book a Meeting')}</span>
             {/* Flecha fina y chica, como la del botón de referencia */}
             <svg
