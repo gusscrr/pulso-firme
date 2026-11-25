@@ -125,8 +125,8 @@ function Header() {
             </svg>
           </button>
 
-          {/* Soporte: globo de chat con un signo de pregunta, mismo
-              trazo que el de idioma. Lleva a la página de Soporte */}
+          {/* Soporte: auriculares de atención al cliente, mismo trazo
+              que el de idioma. Lleva a la página de Soporte */}
           <NavLink
             to="/soporte"
             className={({ isActive }) => `nav-icono nav-ayuda${isActive ? ' activo' : ''}`}
@@ -143,9 +143,10 @@ function Header() {
               strokeLinejoin="round"
               aria-hidden="true"
             >
-              <path d="M12 20.5c4.97 0 9 -3.6 9 -8.25s-4.03 -8.25 -9 -8.25s-9 3.6 -9 8.25c0 1.94 .7 3.73 1.88 5.15l-.88 3.35l3.6 -1.2c1.3 .62 2.8 .95 4.4 .95z" />
-              <path d="M9.6 10a2.4 2.4 0 1 1 3.45 2.15c-.62 .3 -1.05 .82 -1.05 1.5v.35" />
-              <circle cx="12" cy="16.6" r=".85" fill="currentColor" stroke="none" />
+              <path d="M4 15v-3a8 8 0 0 1 16 0v3" />
+              <path d="M4 15a2 2 0 0 1 2 -2h1v6h-1a2 2 0 0 1 -2 -2z" />
+              <path d="M20 15a2 2 0 0 0 -2 -2h-1v6h1a2 2 0 0 0 2 -2z" />
+              <path d="M18 19c0 1.1 -2.7 2 -6 2" />
             </svg>
           </NavLink>
 
