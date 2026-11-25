@@ -378,3 +378,13 @@
         display:none;
     }
 }
+
+/* Respaldo institucional (Inicio y Empresa): sin el recuadro
+   redondeado, los logos quedan sueltos sobre el fondo */
+.respaldo{
+    padding:0;
+    border:none;
+    border-radius:0;
+    box-shadow:none;
+    background:transparent;
+}
